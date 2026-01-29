@@ -87,12 +87,30 @@ export async function deleteFromStorage(imageKey: string): Promise<DeleteResult>
             return { success: true }; // Nothing to delete
         }
 
+        let key = imageKey;
+        // If it's a full URL, try to extract the key
+        if (imageKey.startsWith("http")) {
+            const publicDomain = process.env.NEXT_PUBLIC_R2_PUBLIC_DOMAIN || process.env.R2_PUBLIC_DOMAIN;
+            if (publicDomain && imageKey.includes(publicDomain)) {
+                key = imageKey.split(`${publicDomain}/`)[1];
+            } else {
+                // If it's a URL but not from our R2 domain, we can't reliably delete it via S3 API
+                console.warn("Attempted to delete external URL from storage:", imageKey);
+                return { success: true };
+            }
+        }
+
         const command = new DeleteObjectCommand({
             Bucket: R2_BUCKET_NAME,
-            Key: imageKey,
+            Key: key,
         });
 
-        await s3Client.send(command);
+        await s3Client.send(command).catch(err => {
+            // Silently fail if object doesn't exist (already deleted)
+            if (err.name === 'NoSuchKey') return;
+            throw err;
+        });
+
         return { success: true };
     } catch (error) {
         console.error("Error deleting from storage:", error);

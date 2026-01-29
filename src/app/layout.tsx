@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     },
 };
 
+import { ThemeProvider } from "@/components/theme-provider";
+import WhatsAppButton from "@/components/ui/whatsapp-button";
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -32,9 +35,17 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="es" suppressHydrationWarning>
-            <body className="antialiased font-sans">
-                <Navbar />
-                <main>{children}</main>
+            <body className="antialiased font-sans" suppressHydrationWarning>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="dark"
+                    enableSystem={false}
+                    disableTransitionOnChange
+                >
+                    <Navbar />
+                    <main>{children}</main>
+                    <WhatsAppButton />
+                </ThemeProvider>
             </body>
         </html>
     );

@@ -1,39 +1,25 @@
 import { S3Client } from "@aws-sdk/client-s3";
 
-if (!process.env.R2_ACCESS_KEY_ID) {
-    throw new Error("R2_ACCESS_KEY_ID is not defined");
-}
-if (!process.env.R2_SECRET_ACCESS_KEY) {
-    throw new Error("R2_SECRET_ACCESS_KEY is not defined");
-}
-if (!process.env.R2_ENDPOINT) {
-    throw new Error("R2_ENDPOINT is not defined");
-}
+// Helper to get server env vars safely
+const getEnv = (key: string) => {
+    const value = process.env[key];
+    if (typeof window === "undefined" && !value) {
+        console.warn(`Server-side environment variable ${key} is missing`);
+    }
+    return value || "";
+};
 
 export const s3Client = new S3Client({
-    region: process.env.R2_REGION || "auto",
-    endpoint: process.env.R2_ENDPOINT,
+    region: getEnv("R2_REGION") || "auto",
+    endpoint: getEnv("R2_ENDPOINT"),
+    forcePathStyle: true, // Crucial para Backblaze B2
     credentials: {
-        accessKeyId: process.env.R2_ACCESS_KEY_ID,
-        secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+        accessKeyId: getEnv("R2_ACCESS_KEY_ID"),
+        secretAccessKey: getEnv("R2_SECRET_ACCESS_KEY"),
     },
 });
 
-export const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || "calitop-images";
-export const R2_PUBLIC_DOMAIN = process.env.R2_PUBLIC_DOMAIN || "";
+export const R2_BUCKET_NAME = getEnv("R2_BUCKET_NAME") || "calitop-images";
 
-/**
- * Constructs the public URL for an image stored in the S3 bucket
- * @param imageKey - The key/path of the image in the bucket
- * @returns The full public URL to access the image
- */
-export function getPublicUrl(imageKey: string): string {
-    if (!imageKey) return "";
-    if (!R2_PUBLIC_DOMAIN) {
-        console.warn("R2_PUBLIC_DOMAIN is not configured");
-        return "";
-    }
-    // Ensure no double slashes
-    const cleanKey = imageKey.startsWith("/") ? imageKey.slice(1) : imageKey;
-    return `https://${R2_PUBLIC_DOMAIN}/${cleanKey}`;
-}
+// Re-export getPublicUrl from the safe utility for convenience in server-side code
+export { getPublicUrl } from "./storage-utils";

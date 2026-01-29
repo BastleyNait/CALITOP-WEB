@@ -8,7 +8,7 @@ import ShinyText from "@/components/ShinyText";
 
 export default function AboutPage() {
     return (
-        <div className="relative min-h-screen w-full overflow-hidden bg-slate-50">
+        <div className="relative min-h-screen w-full overflow-hidden bg-background">
             {/* Background Animation */}
             <div className="absolute inset-0 z-0 opacity-20">
                 <Squares
@@ -29,10 +29,10 @@ export default function AboutPage() {
                             delay={100}
                             animateBy="words"
                             direction="top"
-                            className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight"
+                            className="text-5xl md:text-7xl font-black text-foreground tracking-tight"
                         />
                         <FadeContent blur={true} duration={1200} delay={400} initialOpacity={0}>
-                            <p className="text-slate-600 text-xl mt-8 max-w-2xl mx-auto leading-relaxed font-medium">
+                            <p className="text-muted-foreground text-xl mt-8 max-w-2xl mx-auto leading-relaxed font-medium">
                                 Somos líderes en soluciones topográficas, comprometidos con la precisión
                                 y la excelencia técnica en cada proyecto.
                             </p>
@@ -42,16 +42,16 @@ export default function AboutPage() {
                     {/* Main Mission Card */}
                     <FadeContent blur={true} duration={1000} delay={600} initialOpacity={0}>
                         <SpotlightCard
-                            className="p-10 md:p-14 border border-slate-100 bg-white shadow-xl mb-12"
+                            className="p-10 md:p-14 border border-border bg-card shadow-xl mb-12"
                             spotlightColor="rgba(37, 99, 235, 0.05)"
                         >
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="w-1 h-10 bg-gradient-to-b from-blue-500 to-blue-700 rounded-full"></div>
-                                <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+                                <h2 className="text-3xl md:text-4xl font-bold text-foreground">
                                     <ShinyText text="Nuestra Misión" speed={3} shineColor="#F97316" color="#2563EB" />
                                 </h2>
                             </div>
-                            <p className="text-slate-600 text-lg md:text-xl leading-relaxed">
+                            <p className="text-muted-foreground text-lg md:text-xl leading-relaxed">
                                 Proveer equipos topográficos de última generación y servicios profesionales
                                 especializados que superen las expectativas de nuestros clientes,
                                 contribuyendo al éxito de la industria de la construcción, minería e ingeniería
@@ -64,19 +64,19 @@ export default function AboutPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <FadeContent blur={true} duration={1000} delay={800} initialOpacity={0}>
                             <SpotlightCard
-                                className="p-8 md:p-10 border border-slate-100 bg-white shadow-lg h-full"
+                                className="p-8 md:p-10 border border-border bg-card shadow-lg h-full"
                                 spotlightColor="rgba(249, 115, 22, 0.05)"
                             >
                                 <div className="flex items-center gap-3 mb-5">
-                                    <div className="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center shadow-sm">
+                                    <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-900/20 border border-orange-100 dark:border-orange-800 flex items-center justify-center shadow-sm">
                                         <svg className="w-6 h-6 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-slate-900">Visión</h3>
+                                    <h3 className="text-2xl font-bold text-foreground">Visión</h3>
                                 </div>
-                                <p className="text-slate-600 text-lg leading-relaxed">
+                                <p className="text-muted-foreground text-lg leading-relaxed">
                                     Ser la empresa referente a nivel nacional e internacional en tecnología topográfica,
                                     reconocida por nuestra innovación constante y calidad humana excepcional.
                                 </p>
@@ -85,18 +85,18 @@ export default function AboutPage() {
 
                         <FadeContent blur={true} duration={1000} delay={1000} initialOpacity={0}>
                             <SpotlightCard
-                                className="p-8 md:p-10 border border-slate-100 bg-white shadow-lg h-full"
+                                className="p-8 md:p-10 border border-border bg-card shadow-lg h-full"
                                 spotlightColor="rgba(37, 99, 235, 0.05)"
                             >
                                 <div className="flex items-center gap-3 mb-5">
-                                    <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center shadow-sm">
+                                    <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 flex items-center justify-center shadow-sm">
                                         <svg className="w-6 h-6 text-[#2563EB]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-slate-900">Valores</h3>
+                                    <h3 className="text-2xl font-bold text-foreground">Valores</h3>
                                 </div>
-                                <ul className="text-slate-600 text-lg space-y-3">
+                                <ul className="text-muted-foreground text-lg space-y-3">
                                     <li className="flex items-center gap-3">
                                         <span className="w-2 h-2 rounded-full bg-[#2563EB]"></span>
                                         Precisión Milimétrica
@@ -127,11 +127,11 @@ export default function AboutPage() {
                                 { value: "50+", label: "Equipos en Flota" },
                                 { value: "100%", label: "Satisfacción Cliente" },
                             ].map((stat, index) => (
-                                <div key={index} className="text-center p-6 rounded-2xl border border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-300">
+                                <div key={index} className="text-center p-6 rounded-2xl border border-border bg-card shadow-md hover:shadow-lg transition-all duration-300">
                                     <div className="text-3xl md:text-4xl font-black mb-2">
                                         <ShinyText text={stat.value} speed={4} shineColor="#FDBA74" color="#F97316" />
                                     </div>
-                                    <div className="text-slate-500 text-sm font-semibold">{stat.label}</div>
+                                    <div className="text-muted-foreground text-sm font-semibold">{stat.label}</div>
                                 </div>
                             ))}
                         </div>

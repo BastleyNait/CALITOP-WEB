@@ -9,9 +9,9 @@ import ShinyText from "@/components/ShinyText";
 const contactInfo = [
     {
         title: "Central Telefónica",
-        value: "+51 999 999 999",
+        value: "+51 933 588 122",
         subtitle: "Lunes a Viernes: 8:00 AM - 6:00 PM",
-        color: "blue",
+        color: "orange",
         icon: (
             <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -31,7 +31,7 @@ const contactInfo = [
     },
     {
         title: "WhatsApp",
-        value: "+51 999 999 999",
+        value: "+51 933 588 122",
         subtitle: "Respuesta inmediata",
         color: "green",
         icon: (
@@ -55,23 +55,23 @@ const contactInfo = [
 ];
 
 const colorClasses: Record<string, { bg: string; border: string; text: string; spotlight: string }> = {
-    blue: { bg: "bg-blue-50", border: "border-blue-100", text: "text-blue-500", spotlight: "rgba(59, 130, 246, 0.05)" },
-    purple: { bg: "bg-purple-50", border: "border-purple-100", text: "text-purple-500", spotlight: "rgba(147, 51, 234, 0.05)" },
-    green: { bg: "bg-green-50", border: "border-green-100", text: "text-green-500", spotlight: "rgba(34, 197, 94, 0.05)" },
-    orange: { bg: "bg-orange-50", border: "border-orange-100", text: "text-orange-500", spotlight: "rgba(249, 115, 22, 0.05)" }
+    blue: { bg: "bg-orange-50 dark:bg-orange-900/20", border: "border-orange-100 dark:border-orange-800", text: "text-orange-500", spotlight: "rgba(249, 115, 22, 0.05)" },
+    purple: { bg: "bg-purple-50 dark:bg-purple-900/20", border: "border-purple-100 dark:border-purple-800", text: "text-purple-500", spotlight: "rgba(147, 51, 234, 0.05)" },
+    green: { bg: "bg-green-50 dark:bg-green-900/20", border: "border-green-100 dark:border-green-800", text: "text-green-500", spotlight: "rgba(34, 197, 94, 0.05)" },
+    orange: { bg: "bg-orange-50 dark:bg-orange-900/20", border: "border-orange-100 dark:border-orange-800", text: "text-orange-500", spotlight: "rgba(249, 115, 22, 0.05)" }
 };
 
 export default function ContactPage() {
     return (
-        <div className="relative min-h-screen w-full overflow-hidden bg-slate-50">
+        <div className="relative min-h-screen w-full overflow-hidden bg-background">
             {/* Background Animation */}
             <div className="absolute inset-0 z-0 opacity-20">
                 <Squares
                     direction="diagonal"
                     speed={0.25}
                     squareSize={55}
-                    borderColor="#94a3b8"
-                    hoverFillColor="#cbd5e1"
+                    borderColor="#333"
+                    hoverFillColor="#444"
                 />
             </div>
 
@@ -84,12 +84,12 @@ export default function ContactPage() {
                             delay={80}
                             animateBy="words"
                             direction="top"
-                            className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight"
+                            className="text-5xl md:text-7xl font-black text-foreground tracking-tight"
                         />
                         <FadeContent blur={true} duration={1000} delay={300} initialOpacity={0}>
-                            <p className="text-slate-600 max-w-2xl mx-auto text-xl mt-8 leading-relaxed font-medium">
+                            <p className="text-muted-foreground max-w-2xl mx-auto text-xl mt-8 leading-relaxed font-medium">
                                 Estamos listos para asesorarte en tu próximo proyecto.
-                                <ShinyText text=" Escríbenos" speed={3} shineColor="#F97316" color="#2563EB" /> o visítanos.
+                                <ShinyText text=" Escríbenos" speed={3} shineColor="#F97316" color="#F97316" /> o visítanos.
                             </p>
                         </FadeContent>
                     </div>
@@ -100,7 +100,7 @@ export default function ContactPage() {
                             {contactInfo.map((info, index) => (
                                 <FadeContent key={info.title} blur={true} duration={800} delay={400 + index * 100} initialOpacity={0}>
                                     <SpotlightCard
-                                        className="p-6 md:p-8 border border-slate-100 bg-white shadow-lg group hover:border-blue-200 transition-all duration-300"
+                                        className="p-6 md:p-8 border border-border bg-card shadow-lg group hover:border-[#F97316]/50 transition-all duration-300"
                                         spotlightColor={colorClasses[info.color].spotlight}
                                     >
                                         <div className="flex items-start gap-5">
@@ -108,8 +108,8 @@ export default function ContactPage() {
                                                 {info.icon}
                                             </div>
                                             <div>
-                                                <h3 className="text-xl font-bold text-slate-900 mb-1">{info.title}</h3>
-                                                <p className="text-slate-600 text-lg">{info.value}</p>
+                                                <h3 className="text-xl font-bold text-foreground mb-1">{info.title}</h3>
+                                                <p className="text-muted-foreground text-lg">{info.value}</p>
                                                 <p className="text-slate-400 text-sm mt-1">{info.subtitle}</p>
                                             </div>
                                         </div>
@@ -128,7 +128,7 @@ export default function ContactPage() {
                                             { name: "LinkedIn", icon: "in" },
                                             { name: "YouTube", icon: "▶" }
                                         ].map((social) => (
-                                            <button key={social.name} className="w-12 h-12 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-400 hover:text-[#2563EB] hover:border-blue-200 hover:bg-blue-50 transition-all shadow-sm">
+                                            <button key={social.name} className="w-12 h-12 rounded-xl border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-[#F97316] hover:border-[#F97316]/50 transition-all shadow-sm">
                                                 <span className="text-sm font-bold">{social.icon}</span>
                                             </button>
                                         ))}
@@ -141,55 +141,55 @@ export default function ContactPage() {
                         <div className="lg:col-span-7">
                             <FadeContent blur={true} duration={1000} delay={600} initialOpacity={0}>
                                 <SpotlightCard
-                                    className="p-8 md:p-12 border border-slate-100 bg-white shadow-xl h-full"
-                                    spotlightColor="rgba(37, 99, 235, 0.03)"
+                                    className="p-8 md:p-12 border border-border bg-card shadow-xl h-full"
+                                    spotlightColor="rgba(249, 115, 22, 0.05)"
                                 >
-                                    <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-8">
-                                        <ShinyText text="Envíanos un mensaje" speed={4} shineColor="#F97316" color="#0F172A" />
+                                    <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
+                                        <ShinyText text="Envíanos un mensaje" speed={4} shineColor="#F97316" color="#F97316" />
                                     </h3>
                                     <form className="space-y-6">
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                             <div>
-                                                <label htmlFor="name" className="block text-sm font-bold text-slate-700 mb-2">
+                                                <label htmlFor="name" className="block text-sm font-bold text-foreground mb-2">
                                                     Nombre completo
                                                 </label>
                                                 <input
                                                     type="text"
                                                     id="name"
-                                                    className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                                                    className="w-full px-5 py-4 rounded-2xl bg-muted border border-border text-foreground placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#F97316]/20 focus:border-[#F97316] transition-all"
                                                     placeholder="Ej: Juan Pérez"
                                                 />
                                             </div>
                                             <div>
-                                                <label htmlFor="phone" className="block text-sm font-bold text-slate-700 mb-2">
+                                                <label htmlFor="phone" className="block text-sm font-bold text-foreground mb-2">
                                                     Teléfono
                                                 </label>
                                                 <input
                                                     type="tel"
                                                     id="phone"
-                                                    className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                                                    placeholder="+51 999 999 999"
+                                                    className="w-full px-5 py-4 rounded-2xl bg-muted border border-border text-foreground placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#F97316]/20 focus:border-[#F97316] transition-all"
+                                                    placeholder="+51 933 588 122"
                                                 />
                                             </div>
                                         </div>
                                         <div>
-                                            <label htmlFor="email" className="block text-sm font-bold text-slate-700 mb-2">
+                                            <label htmlFor="email" className="block text-sm font-bold text-foreground mb-2">
                                                 Correo electrónico
                                             </label>
                                             <input
                                                 type="email"
                                                 id="email"
-                                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                                                className="w-full px-5 py-4 rounded-2xl bg-muted border border-border text-foreground placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#F97316]/20 focus:border-[#F97316] transition-all"
                                                 placeholder="su@email.com"
                                             />
                                         </div>
                                         <div>
-                                            <label htmlFor="subject" className="block text-sm font-bold text-slate-700 mb-2">
+                                            <label htmlFor="subject" className="block text-sm font-bold text-foreground mb-2">
                                                 ¿Cómo podemos ayudarte?
                                             </label>
                                             <select
                                                 id="subject"
-                                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                                                className="w-full px-5 py-4 rounded-2xl bg-muted border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-[#F97316]/20 focus:border-[#F97316] transition-all appearance-none cursor-pointer"
                                             >
                                                 <option value="">Selecciona una opción</option>
                                                 <option>Cotización de Equipos</option>
@@ -201,19 +201,19 @@ export default function ContactPage() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label htmlFor="message" className="block text-sm font-bold text-slate-700 mb-2">
+                                            <label htmlFor="message" className="block text-sm font-bold text-foreground mb-2">
                                                 Mensaje
                                             </label>
                                             <textarea
                                                 id="message"
                                                 rows={5}
-                                                className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all resize-none"
+                                                className="w-full px-5 py-4 rounded-2xl bg-muted border border-border text-foreground placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#F97316]/20 focus:border-[#F97316] transition-all resize-none"
                                                 placeholder="Cuéntanos sobre tu proyecto o requerimiento..."
                                             />
                                         </div>
                                         <button
                                             type="submit"
-                                            className="w-full py-5 rounded-2xl bg-[#2563EB] text-white font-bold hover:bg-blue-700 transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-blue-500/20 text-lg"
+                                            className="w-full py-5 rounded-2xl bg-[#F97316] text-white font-bold hover:bg-orange-600 transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-orange-500/20 text-lg"
                                         >
                                             Enviar Mensaje
                                         </button>
@@ -230,19 +230,19 @@ export default function ContactPage() {
                     <FadeContent blur={true} duration={1000} delay={1000} initialOpacity={0}>
                         <div className="mt-20">
                             <SpotlightCard
-                                className="p-2 border border-slate-200 bg-white shadow-lg overflow-hidden"
-                                spotlightColor="rgba(59, 130, 246, 0.05)"
+                                className="p-2 border border-border bg-card shadow-lg overflow-hidden"
+                                spotlightColor="rgba(249, 115, 22, 0.05)"
                             >
-                                <div className="w-full h-64 md:h-80 rounded-2xl bg-slate-100 flex items-center justify-center">
+                                <div className="w-full h-64 md:h-80 rounded-2xl bg-muted flex items-center justify-center">
                                     <div className="text-center">
-                                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
-                                            <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-900/20 border border-orange-800 flex items-center justify-center">
+                                            <svg className="w-8 h-8 text-[#F97316]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
                                         </div>
-                                        <p className="text-slate-900 font-bold">Mapa interactivo</p>
-                                        <p className="text-slate-500 text-sm">Av. Principal 123, San Borja, Lima</p>
+                                        <p className="text-foreground font-bold">Mapa interactivo</p>
+                                        <p className="text-muted-foreground text-sm font-medium">Ubicación exacta de nuestras oficinas</p>
                                     </div>
                                 </div>
                             </SpotlightCard>

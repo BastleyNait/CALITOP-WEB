@@ -12,6 +12,7 @@ export interface ProductFormData {
     price: number | null;
     imageKey: string | null;
     stockStatus: StockStatus;
+    showPrice: boolean;
 }
 
 export interface ActionResult<T = void> {
@@ -26,8 +27,7 @@ export interface ActionResult<T = void> {
 export async function getProducts(): Promise<ActionResult<Product[]>> {
     try {
         const supabase = await createClient();
-        const { data, error } = await supabase
-            .from("products")
+        const { data, error } = await (supabase.from("products") as any)
             .select("*")
             .order("created_at", { ascending: false });
 
@@ -36,11 +36,16 @@ export async function getProducts(): Promise<ActionResult<Product[]>> {
         }
 
         return { success: true, data: data || [] };
-    } catch (error) {
-        console.error("Error fetching products:", error);
+    } catch (error: any) {
+        console.error("Error fetching products details:", {
+            message: error.message,
+            code: error.code,
+            details: error.details,
+            hint: error.hint
+        });
         return {
             success: false,
-            error: error instanceof Error ? error.message : "Failed to fetch products",
+            error: error.message || "Failed to fetch products",
         };
     }
 }
@@ -80,8 +85,7 @@ export async function createProduct(
     try {
         const supabase = await createClient();
 
-        const { data, error } = await supabase
-            .from("products")
+        const { data, error } = await (supabase.from("products") as any)
             .insert({
                 name: formData.name,
                 description: formData.description || null,
@@ -89,6 +93,7 @@ export async function createProduct(
                 price: formData.price,
                 image_key: formData.imageKey,
                 stock_status: formData.stockStatus,
+                show_price: formData.showPrice,
             })
             .select()
             .single();
@@ -119,8 +124,7 @@ export async function updateProduct(
     try {
         const supabase = await createClient();
 
-        const { data, error } = await supabase
-            .from("products")
+        const { data, error } = await (supabase.from("products") as any)
             .update({
                 name: formData.name,
                 description: formData.description || null,
@@ -128,6 +132,7 @@ export async function updateProduct(
                 price: formData.price,
                 image_key: formData.imageKey,
                 stock_status: formData.stockStatus,
+                show_price: formData.showPrice,
             })
             .eq("id", id)
             .select()
@@ -162,8 +167,7 @@ export async function deleteProduct(id: string): Promise<ActionResult> {
         const supabase = await createClient();
 
         // First, get the product to retrieve the image key
-        const { data: product, error: fetchError } = await supabase
-            .from("products")
+        const { data: product, error: fetchError } = await (supabase.from("products") as any)
             .select("image_key")
             .eq("id", id)
             .single();
@@ -173,8 +177,7 @@ export async function deleteProduct(id: string): Promise<ActionResult> {
         }
 
         // Delete the product from the database
-        const { error: deleteError } = await supabase
-            .from("products")
+        const { error: deleteError } = await (supabase.from("products") as any)
             .delete()
             .eq("id", id);
 

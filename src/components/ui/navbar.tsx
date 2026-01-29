@@ -5,13 +5,14 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { AdminNavbar } from "@/components/admin/admin-navbar";
 
 const navLinks = [
     { href: "/", label: "Inicio" },
     { href: "/about", label: "Nosotros" },
-    { href: "/rentals", label: "Venta y Alquiler" },
     { href: "/technical-service", label: "Servicio Técnico" },
-    { href: "/topography-service", label: "Topografía" },
+    { href: "/products", label: "Productos" },
     { href: "/contact", label: "Contacto" },
 ];
 
@@ -29,13 +30,20 @@ export function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Check if we are in admin section
+    const isAdmin = pathname?.startsWith('/admin');
+
+    if (isAdmin) {
+        return <AdminNavbar />;
+    }
+
     return (
         <motion.nav
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                ? "bg-white/90 backdrop-blur-xl border-b border-slate-200/50 shadow-sm"
+                ? "bg-white/90 dark:bg-[#08090a]/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/10 shadow-sm"
                 : "bg-transparent"
                 }`}
         >
@@ -63,7 +71,7 @@ export function Navbar() {
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center">
-                        <div className="flex items-center bg-slate-100/50 rounded-full p-1.5 border border-slate-200/50">
+                        <div className="flex items-center bg-zinc-100/50 dark:bg-black/40 backdrop-blur-md rounded-full p-1.5 border border-slate-200/50 dark:border-white/10">
                             {navLinks.map((link) => {
                                 const isActive = pathname === link.href;
                                 const isHovered = hoveredLink === link.href;
@@ -81,8 +89,8 @@ export function Navbar() {
                                             <motion.div
                                                 layoutId="navPill"
                                                 className={`absolute inset-0 rounded-full ${isActive
-                                                    ? "bg-white shadow-sm ring-1 ring-slate-200"
-                                                    : "bg-slate-200/50"
+                                                    ? "bg-white dark:bg-zinc-800 shadow-sm ring-1 ring-slate-200 dark:ring-white/10"
+                                                    : "bg-slate-200/50 dark:bg-white/5"
                                                     }`}
                                                 transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
                                             />
@@ -90,10 +98,10 @@ export function Navbar() {
 
                                         {/* Text */}
                                         <span className={`relative z-10 transition-colors duration-200 ${isActive
-                                            ? "text-[#2563EB]"
+                                            ? "text-[#F97316]"
                                             : isHovered
-                                                ? "text-slate-900"
-                                                : "text-slate-500"
+                                                ? "text-slate-900 dark:text-white"
+                                                : "text-slate-500 dark:text-slate-400"
                                             }`}>
                                             {link.label}
                                         </span>
@@ -103,45 +111,42 @@ export function Navbar() {
                         </div>
                     </div>
 
-                    {/* Desktop Actions */}
-                    <div className="hidden lg:flex items-center gap-3">
-                        <Link
-                            href="/admin/products"
-                            className="group relative px-6 py-2.5 rounded-full text-sm font-bold overflow-hidden shadow-md hover:shadow-lg transition-all"
-                        >
-                            {/* Animated gradient background - Orange to Red/Orange */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#F97316] via-[#FB923C] to-[#F97316] bg-[length:200%_100%] animate-gradient-x" />
-
-                            <span className="relative z-10 text-white flex items-center gap-2">
-                                Admin
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                </svg>
-                            </span>
-                        </Link>
+                    {/* Desktop Actions - TOPSERVICE Logo */}
+                    <div className="hidden lg:flex items-center">
+                        <div className="relative w-40 h-20">
+                            <Image
+                                src="/images/products/logo2.png"
+                                alt="TOPSERVICE Logo"
+                                fill
+                                className="object-contain brightness-110"
+                                priority
+                            />
+                        </div>
                     </div>
 
                     {/* Mobile Menu Button */}
-                    <motion.button
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="lg:hidden relative w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-800"
-                        whileTap={{ scale: 0.9 }}
-                    >
-                        <div className="w-5 h-4 flex flex-col justify-between">
-                            <motion.span
-                                animate={mobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                                className="w-full h-0.5 bg-slate-800 rounded-full origin-left"
-                            />
-                            <motion.span
-                                animate={mobileMenuOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }}
-                                className="w-full h-0.5 bg-slate-800 rounded-full"
-                            />
-                            <motion.span
-                                animate={mobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                                className="w-full h-0.5 bg-slate-800 rounded-full origin-left"
-                            />
-                        </div>
-                    </motion.button>
+                    <div className="lg:hidden flex items-center gap-4">
+                        <motion.button
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            className="relative w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-800 dark:text-slate-200"
+                            whileTap={{ scale: 0.9 }}
+                        >
+                            <div className="w-5 h-4 flex flex-col justify-between">
+                                <motion.span
+                                    animate={mobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                                    className="w-full h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full origin-left"
+                                />
+                                <motion.span
+                                    animate={mobileMenuOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }}
+                                    className="w-full h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full"
+                                />
+                                <motion.span
+                                    animate={mobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                                    className="w-full h-0.5 bg-slate-800 dark:bg-slate-200 rounded-full origin-left"
+                                />
+                            </div>
+                        </motion.button>
+                    </div>
                 </div>
             </div>
 
@@ -153,7 +158,7 @@ export function Navbar() {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="lg:hidden overflow-hidden bg-white/98 backdrop-blur-2xl border-t border-slate-100 shadow-xl"
+                        className="lg:hidden overflow-hidden bg-white/98 dark:bg-slate-900/98 backdrop-blur-2xl border-t border-slate-100 dark:border-slate-800 shadow-xl"
                     >
                         <div className="px-4 py-6 space-y-2">
                             {navLinks.map((link, index) => {
@@ -169,11 +174,11 @@ export function Navbar() {
                                             href={link.href}
                                             onClick={() => setMobileMenuOpen(false)}
                                             className={`flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-200 ${isActive
-                                                ? "bg-[#2563EB] text-white shadow-md shadow-blue-500/20"
-                                                : "text-slate-600 hover:bg-slate-50 hover:text-[#2563EB]"
+                                                ? "bg-[#F97316] text-white shadow-md shadow-orange-500/20"
+                                                : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-zinc-800 hover:text-[#F97316] dark:hover:text-[#F97316]"
                                                 }`}
                                         >
-                                            <span className={`w-2 h-2 rounded-full ${isActive ? "bg-white" : "bg-slate-300"
+                                            <span className={`w-2 h-2 rounded-full ${isActive ? "bg-white" : "bg-slate-300 dark:bg-slate-600"
                                                 }`} />
                                             <span className="font-bold">{link.label}</span>
                                         </Link>
@@ -181,20 +186,7 @@ export function Navbar() {
                                 );
                             })}
 
-                            <motion.div
-                                className="pt-4 mt-4 border-t border-slate-100"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.3 }}
-                            >
-                                <Link
-                                    href="/admin/products"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="flex items-center justify-center gap-2 px-4 py-4 rounded-2xl bg-gradient-to-r from-[#F97316] to-[#FB923C] text-white font-bold shadow-lg shadow-orange-500/20"
-                                >
-                                    Admin Panel
-                                </Link>
-                            </motion.div>
+                            {/* Removed Admin link from mobile menu */}
                         </div>
                     </motion.div>
                 )}

@@ -106,43 +106,30 @@ import FadeContent from "@/components/FadeContent";
 
 export const Header = () => {
     return (
-        <div className="max-w-7xl relative mx-auto px-4 w-full left-0 top-0 h-screen flex flex-col justify-center pb-36 z-20 pointer-events-none">
-            <div className="pointer-events-auto max-w-4xl">
-                <div className="flex flex-col md:flex-row md:items-baseline gap-1 md:gap-4">
-                    <BlurText
-                        text="CALITOP"
-                        delay={50}
-                        animateBy="words"
-                        direction="top"
-                        className="text-5xl md:text-7xl font-black text-[#6697ff] uppercase tracking-tighter leading-none"
-                    />
-                    <BlurText
-                        text="E.I.R.L."
-                        delay={150}
-                        animateBy="words"
-                        direction="top"
-                        className="text-xl md:text-3xl font-black text-[#6697ff] uppercase tracking-tighter leading-none"
-                    />
-                </div>
-
-                <BlurText
-                    text="CALIBRACIÓN DE EQUIPOS E INSTRUMENTOS"
-                    delay={80}
-                    animateBy="words"
-                    direction="top"
-                    className="max-w-xl text-xl md:text-3xl mt-4 text-slate-900 font-black uppercase tracking-tighter leading-tight"
-                />
+        <div className="max-w-7xl relative mx-auto px-4 w-full left-0 top-0 h-screen flex flex-col items-center justify-center pb-36 z-20 pointer-events-none text-center">
+            <div className="pointer-events-auto max-w-4xl flex flex-col items-center">
+                <FadeContent blur={true} duration={1000} delay={200} initialOpacity={0}>
+                    <div className="relative w-[320px] sm:w-[500px] md:w-[700px] h-[160px] sm:h-[250px] md:h-[300px] mb-2">
+                        <Image
+                            src="/images/products/logo.png"
+                            alt="CALITOP Logo"
+                            fill
+                            className="object-contain brightness-110 drop-shadow-2xl"
+                            priority
+                        />
+                    </div>
+                </FadeContent>
 
                 <BlurText
                     text="Líderes en soluciones integrales de topografía, garantizando precisión y calidad en cada proyecto."
-                    delay={40}
+                    delay={30}
                     animateBy="words"
                     direction="top"
-                    className="max-w-xl text-sm md:text-lg mt-4 text-slate-600 font-semibold"
+                    className="max-w-xl text-sm md:text-lg mt-2 text-slate-600 dark:text-slate-200 font-semibold justify-center"
                 />
 
                 <FadeContent blur={true} duration={1000} delay={1200} initialOpacity={0}>
-                    <div className="flex flex-col sm:flex-row gap-4 mt-10">
+                    <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center">
                         <Link
                             href="/contact"
                             className="px-8 py-4 bg-[#2563EB] text-white font-bold rounded-full hover:bg-blue-700 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2"

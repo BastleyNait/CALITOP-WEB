@@ -17,8 +17,20 @@ export interface Product {
     price: number | null;
     image_key: string | null;
     stock_status: StockStatus;
+    show_price: boolean;
     created_at: string;
     updated_at: string;
+}
+
+export interface Order {
+    id: string;
+    product_id: string | null;
+    first_name: string;
+    last_name: string;
+    dni: string;
+    location: string;
+    status: string;
+    created_at: string;
 }
 
 export interface Database {
@@ -28,6 +40,11 @@ export interface Database {
                 Row: Product;
                 Insert: Omit<Product, "id" | "created_at" | "updated_at">;
                 Update: Partial<Omit<Product, "id" | "created_at" | "updated_at">>;
+            };
+            orders: {
+                Row: Order;
+                Insert: Omit<Order, "id" | "created_at">;
+                Update: Partial<Omit<Order, "id" | "created_at">>;
             };
         };
         Enums: {
