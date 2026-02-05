@@ -1,0 +1,145 @@
+/* Tiptap Rich Text Editor Styles */
+
+.ProseMirror {
+    color: #fff;
+    outline: none;
+}
+
+.ProseMirror p {
+    margin-bottom: 0.75rem;
+}
+
+.ProseMirror h2 {
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: #F97316;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.ProseMirror h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #38BDF8;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.ProseMirror h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #A78BFA;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.ProseMirror ul li {
+    list-style-type: disc;
+    margin-bottom: 0.5rem;
+    color: #E2E8F0;
+}
+
+.ProseMirror ol li {
+    list-style-type: decimal;
+    margin-bottom: 0.5rem;
+    color: #E2E8F0;
+}
+
+.ProseMirror strong {
+    font-weight: 700;
+    color: #fff;
+}
+
+.ProseMirror em {
+    font-style: italic;
+}
+
+.ProseMirror u {
+    text-decoration: underline;
+}
+
+.ProseMirror s {
+    text-decoration: line-through;
+}
+
+.ProseMirror hr {
+    border: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    margin: 1.5rem 0;
+}
+
+/* Table styles */
+.ProseMirror table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 1.5rem 0;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ProseMirror table td,
+.ProseMirror table th {
+    min-width: 1em;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1rem;
+    vertical-align: top;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.ProseMirror table th {
+    font-weight: 700;
+    text-align: left;
+    background-color: rgba(249, 115, 22, 0.1);
+    color: #F97316;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.ProseMirror table td {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.ProseMirror table .selectedCell {
+    background-color: rgba(249, 115, 22, 0.1);
+}
+
+.ProseMirror table .column-resize-handle {
+    position: absolute;
+    right: -2px;
+    top: 0;
+    bottom: -2px;
+    width: 4px;
+    background-color: #F97316;
+    pointer-events: none;
+}
+
+/* Placeholder */
+.ProseMirror p.is-editor-empty:first-child::before {
+    color: #64748b;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+/* Selection */
+.ProseMirror ::selection {
+    background-color: rgba(249, 115, 22, 0.2);
+}
+
+.ProseMirror-focused {
+    outline: none;
+}

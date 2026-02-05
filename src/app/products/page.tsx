@@ -1,4 +1,5 @@
 import { getProducts } from "@/actions/products";
+import { getProductTypes } from "@/actions/product-types";
 import { getPublicUrl } from "@/lib/storage-utils";
 import ProductsClient from "./ProductsClient";
 
@@ -8,8 +9,13 @@ export const metadata = {
 };
 
 export default async function ProductsPage() {
-    const result = await getProducts();
-    const products = result.success ? result.data || [] : [];
+    const [productsResult, typesResult] = await Promise.all([
+        getProducts(),
+        getProductTypes()
+    ]);
+
+    const products = productsResult.success ? productsResult.data || [] : [];
+    const productTypes = typesResult.success ? typesResult.data || [] : [];
 
     // Map image keys to public URLs
     const publicUrls: Record<string, string> = {};
@@ -23,6 +29,7 @@ export default async function ProductsPage() {
         <ProductsClient
             initialProducts={products}
             publicUrls={publicUrls}
+            productTypes={productTypes}
         />
     );
 }

@@ -1,11 +1,11 @@
 "use client";
 
 import { Product } from "@/types/database";
-import { MarkdownContent } from "@/components/ui/markdown-content";
 import Link from "next/link";
 import FadeContent from "@/components/FadeContent";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import "@/components/admin/editor.css";
 
 interface ProductDetailClientProps {
     product: Product;
@@ -52,17 +52,20 @@ export default function ProductDetailClient({ product, imageUrl }: ProductDetail
                         {/* Left: Image */}
                         <FadeContent blur={true} duration={800} delay={200} initialOpacity={0}>
                             <motion.div
-                                className="relative aspect-[4/3] rounded-2xl overflow-hidden glass-card p-6 lg:p-8 group"
+                                className="relative rounded-2xl overflow-hidden glass-card p-6 lg:p-8 group flex items-center justify-center"
+                                style={{ minHeight: '400px' }}
                                 whileHover={{ scale: 1.01 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-cyan-500/5 opacity-50" />
-                                <Image
-                                    src={imageUrl}
-                                    alt={product.name}
-                                    fill
-                                    className="object-contain p-2 group-hover:scale-105 transition-transform duration-700 relative z-10"
-                                />
+                                <div className="relative w-full max-w-[400px] h-[300px]">
+                                    <Image
+                                        src={imageUrl}
+                                        alt={product.name}
+                                        fill
+                                        className="object-contain group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                </div>
                                 <div className="absolute top-6 right-6 w-24 h-24 bg-orange-500/20 rounded-full blur-2xl" />
                                 <div className="absolute bottom-6 left-6 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl" />
                             </motion.div>
@@ -160,9 +163,9 @@ export default function ProductDetailClient({ product, imageUrl }: ProductDetail
 
                                 <div className="glass-card p-6 lg:p-8 rounded-2xl relative overflow-hidden">
                                     <div className="absolute top-0 right-0 w-48 h-48 bg-orange-500/5 rounded-full blur-2xl" />
-                                    <div className="relative prose prose-sm prose-invert prose-orange max-w-none">
+                                    <div className="relative prose prose-sm prose-invert prose-orange max-w-none ProseMirror">
                                         {product.description ? (
-                                            <MarkdownContent content={product.description} />
+                                            <div dangerouslySetInnerHTML={{ __html: product.description }} />
                                         ) : (
                                             <p className="italic text-slate-500 text-sm">No hay información técnica disponible.</p>
                                         )}

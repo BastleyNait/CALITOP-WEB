@@ -5,117 +5,278 @@ import SpotlightCard from "@/components/SpotlightCard";
 import FadeContent from "@/components/FadeContent";
 import TiltedCard from "@/components/TiltedCard";
 import Link from "next/link";
-import { Product } from "@/types/database";
+import Image from "next/image";
+import { Product, ProductType } from "@/types/database";
 import { MarkdownContent } from "@/components/ui/markdown-content";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ProductsClientProps {
     initialProducts: Product[];
     publicUrls: Record<string, string>;
+    productTypes: ProductType[];  // Categories from DB
 }
 
-const categories = [
-    {
-        title: "Estaciones Totales",
-        description: "Equipos Leica, Topcon, Trimble para levantamientos de alta precisión.",
-        icon: (
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-            </svg>
-        ),
-        gradient: "from-[#F97316] to-orange-600",
-        spotlight: "rgba(249, 115, 22, 0.15)",
-    },
-    {
-        title: "Niveles Automáticos",
-        description: "Niveles digitales y ópticos para control de cotas.",
-        icon: (
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z" />
-            </svg>
-        ),
-        gradient: "from-[#38BDF8] to-cyan-600",
-        spotlight: "rgba(56, 189, 248, 0.15)",
-    },
-    {
-        title: "GPS Diferenciales",
-        description: "Receptores GNSS con tecnología RTK para georreferenciación.",
-        icon: (
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-        ),
-        gradient: "from-purple-500 to-purple-700",
-        spotlight: "rgba(147, 51, 234, 0.15)",
-    },
-    {
-        title: "Accesorios",
-        description: "Trípodes, prismas, bastones, miras, cargadores y baterías.",
-        icon: (
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-            </svg>
-        ),
-        gradient: "from-emerald-500 to-emerald-700",
-        spotlight: "rgba(16, 185, 129, 0.15)",
-    },
-];
 
-export default function ProductsClient({ initialProducts, publicUrls }: ProductsClientProps) {
+
+export default function ProductsClient({ initialProducts, publicUrls, productTypes }: ProductsClientProps) {
     const whatsappNumber = "51933588122";
+    const [selectedType, setSelectedType] = useState<string | null>(null);
+
+    // Filter products by selected type
+    const filteredProducts = selectedType
+        ? initialProducts.filter(p => p.product_type_id === selectedType)
+        : initialProducts;
 
     const handleQuote = (productName: string) => {
         const message = encodeURIComponent(`Hola, deseo información sobre: ${productName}`);
         window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
     };
 
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const backgroundImages = [
+        "/images/products/en-campo.png",
+        "/images/products/colimador.jpeg",
+        "/images/products/geo-gnss.png",
+        "/images/products/inspeccion-drone.png",
+    ];
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
+        }, 6000);
+        return () => clearInterval(timer);
+    }, []);
+
     return (
         <div className="min-h-screen bg-background">
-            <div className="py-24 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto">
-                    {/* Header */}
-                    <div className="text-center mb-16">
-                        <BlurText
-                            text="Productos"
-                            delay={80}
-                            animateBy="words"
-                            direction="top"
-                            className="text-5xl md:text-6xl font-black text-foreground tracking-tight"
+            {/* Full Viewport Header with Carousel */}
+            <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center">
+                {/* Background Layers */}
+                <div className="absolute inset-0 z-0">
+                    {/* Image Slideshow */}
+                    <motion.div
+                        key={currentImageIndex}
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 0.3, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 2, ease: "easeOut" }}
+                        className="absolute inset-0"
+                    >
+                        <Image
+                            src={backgroundImages[currentImageIndex]}
+                            alt="Background Slideshow"
+                            fill
+                            className="object-cover"
+                            priority
                         />
-                        <FadeContent blur={true} duration={800} delay={300} initialOpacity={0}>
-                            <p className="text-muted-foreground max-w-2xl mx-auto text-lg mt-6">
-                                Equipos topográficos nuevos y de segundo uso. Importación directa de las mejores marcas.
-                            </p>
-                        </FadeContent>
-                    </div>
+                    </motion.div>
 
-                    {/* Categories */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-                        {categories.map((cat, index) => (
-                            <FadeContent key={cat.title} blur={true} duration={600} delay={200 + index * 100} initialOpacity={0}>
-                                <SpotlightCard
-                                    className="p-6 border border-border bg-card h-full group hover:border-[#F97316]/30 transition-all duration-300 text-center"
-                                    spotlightColor={cat.spotlight}
-                                >
-                                    <div className={`w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center shadow-lg`}>
-                                        {cat.icon}
-                                    </div>
-                                    <h3 className="text-lg font-bold text-foreground mb-2">{cat.title}</h3>
-                                    <p className="text-muted-foreground text-sm">{cat.description}</p>
-                                </SpotlightCard>
+                    {/* Mesh Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-radial from-background/50 via-background/80 to-background opacity-90" />
+
+                    {/* Radial Gradient for Depth */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
+
+                    {/* Side Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent" />
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+                    {/* Floating Orbs */}
+                    <motion.div
+                        animate={{
+                            y: [0, -30, 0],
+                            opacity: [0.3, 0.5, 0.3],
+                        }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-orange-500/10 blur-[120px]"
+                    />
+                    <motion.div
+                        animate={{
+                            y: [0, 20, 0],
+                            opacity: [0.2, 0.4, 0.2],
+                        }}
+                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                        className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-orange-600/8 blur-[100px]"
+                    />
+                </div>
+
+                <div className="absolute inset-0 z-20 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+                    <div className="w-full">
+                        <div className="text-center space-y-8 max-w-5xl mx-auto">
+                            <FadeContent blur={true} duration={600} delay={0} initialOpacity={0}>
+                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-4">
+                                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
+                                    <span className="text-orange-500 font-black uppercase tracking-widest text-xs">Catálogo Profesional</span>
+                                </div>
                             </FadeContent>
-                        ))}
+
+                            
+                            <FadeContent blur={true} duration={800} delay={300} initialOpacity={0}>
+                                <p className="text-slate-300 leading-relaxed drop-shadow-lg text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white drop-shadow-3xl ">
+                                    Catálogo de Equipos
+                                </p>
+                            </FadeContent>
+
+                            <FadeContent blur={true} duration={800} delay={300} initialOpacity={0}>
+                                <p className="text-slate-300 max-w-3xl mx-auto text-lg md:text-xl font-medium leading-relaxed drop-shadow-lg">
+                                    Equipos topográficos <span className="text-orange-400 font-bold">nuevos y de segundo uso</span>.
+                                    Importación directa de las mejores marcas del mercado.
+                                </p>
+                            </FadeContent>
+
+                            {/* Stats - Simplified */}
+                            <FadeContent blur={true} duration={800} delay={500} initialOpacity={0}>
+                                <div className="flex items-center justify-center gap-12 pt-8">
+                                    <div className="text-center">
+                                        <div className="text-4xl font-black bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent drop-shadow-lg">
+                                            100%
+                                        </div>
+                                        <div className="text-xs text-slate-400 font-bold uppercase tracking-wider mt-2">Garantía Oficial</div>
+                                    </div>
+                                    <div className="h-16 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+                                    <div className="text-center">
+                                        <div className="text-4xl font-black bg-gradient-to-r from-cyan-400 to-cyan-600 bg-clip-text text-transparent drop-shadow-lg">
+                                            24/7
+                                        </div>
+                                        <div className="text-xs text-slate-400 font-bold uppercase tracking-wider mt-2">Soporte Técnico</div>
+                                    </div>
+                                </div>
+                            </FadeContent>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Scroll Indicator */}
+                <motion.div
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+                >
+                    <div className="flex flex-col items-center gap-2">
+                        <span className="text-xs text-slate-500 font-bold uppercase tracking-widest">Explorar</span>
+                        <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                    </div>
+                </motion.div>
+            </section>
+
+            <div className="py-12 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto">
+
+                    {/* Category Filter - Modern Design */}
+                    <div className="mb-16">
+                        <div className="max-w-2xl">                            
+
+                            {/* Modern Filter Dropdown */}
+                            <div className="relative">
+                                <button
+                                    onClick={() => setSelectedType(null)}
+                                    className="w-full group"
+                                >
+                                    <div className="flex items-center gap-4 px-6 py-5 rounded-2xl bg-black/60 border border-white/10 
+                                                  hover:border-orange-500/50 transition-all duration-300 backdrop-blur-sm
+                                                  hover:bg-black/80">
+                                        {/* Icon */}
+                                        <div className="flex flex-col gap-1">
+                                            <div className="w-6 h-0.5 bg-orange-500 rounded-full"></div>
+                                            <div className="w-6 h-0.5 bg-orange-500 rounded-full"></div>
+                                            <div className="w-6 h-0.5 bg-orange-500 rounded-full"></div>
+                                        </div>
+
+                                        {/* Text */}
+                                        <div className="flex-1 text-left">
+                                            <div className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-1">
+                                                Filtrar por Categoría
+                                            </div>
+                                            <div className="text-white font-bold text-lg">
+                                                {selectedType
+                                                    ? productTypes.find(t => t.id === selectedType)?.name
+                                                    : 'Todas las Categorías'
+                                                }
+                                            </div>
+                                        </div>
+
+                                        {/* Arrow */}
+                                        <svg
+                                            className="w-5 h-5 text-orange-500 transition-transform group-hover:translate-y-0.5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </button>
+
+                                {/* Dropdown Menu */}
+                                <div className="absolute top-full left-0 right-0 mt-2 py-2 rounded-2xl bg-black/95 border border-white/10 
+                                              backdrop-blur-md shadow-2xl z-50 opacity-0 invisible group-focus-within:opacity-100 
+                                              group-focus-within:visible transition-all duration-200">
+                                    <button
+                                        onClick={() => setSelectedType(null)}
+                                        className={`w-full px-6 py-3 text-left hover:bg-white/5 transition-colors ${!selectedType ? 'text-orange-500 font-bold' : 'text-white'
+                                            }`}
+                                    >
+                                        📦 Todas las Categorías
+                                    </button>
+                                    {productTypes.map((type) => (
+                                        <button
+                                            key={type.id}
+                                            onClick={() => setSelectedType(type.id)}
+                                            className={`w-full px-6 py-3 text-left hover:bg-white/5 transition-colors ${selectedType === type.id ? 'text-orange-500 font-bold' : 'text-white'
+                                                }`}
+                                        >
+                                            {type.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Active Filter Badge */}
+                            {selectedType && (
+                                <div className="mt-4 flex items-center gap-2">
+                                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/30">
+                                        <span className="text-orange-500 font-bold text-sm">
+                                            {productTypes.find(t => t.id === selectedType)?.name}
+                                        </span>
+                                        <button
+                                            onClick={() => setSelectedType(null)}
+                                            className="text-orange-500 hover:text-orange-400 transition-colors"
+                                        >
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     {/* Products Grid */}
                     <FadeContent blur={true} duration={800} delay={600} initialOpacity={0}>
-                        <h2 className="text-3xl font-black text-foreground text-center mb-12">
-                            <span className="text-[#F97316]">Catálogo</span> de Equipos
-                        </h2>
-                        {initialProducts.length > 0 ? (
+                        <div className="flex items-center justify-between mb-12">
+                           
+                            {selectedType && (
+                                <button
+                                    onClick={() => setSelectedType(null)}
+                                    className="text-sm font-bold text-slate-500 hover:text-orange-500 transition-colors flex items-center gap-2"
+                                >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    Limpiar filtro
+                                </button>
+                            )}
+                        </div>
+                        {filteredProducts.length > 0 ? (
                             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-                                {initialProducts.map((p) => {
+                                {filteredProducts.map((p) => {
                                     const imageUrl = p.image_key ? publicUrls[p.image_key] : "/images/placeholder.png";
                                     return (
                                         <div key={p.id} className="flex flex-col group">
@@ -207,6 +368,6 @@ export default function ProductsClient({ initialProducts, publicUrls }: Products
                     </FadeContent>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

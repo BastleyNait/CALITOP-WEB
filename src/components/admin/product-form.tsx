@@ -6,7 +6,7 @@ import { ImageUpload } from "./image-upload";
 import { createProduct, updateProduct, ProductFormData } from "@/actions/products";
 import { getProductTypes } from "@/actions/product-types";
 import { Product, ProductCategory, StockStatus, ProductType } from "@/types/database";
-import { MarkdownContent } from "@/components/ui/markdown-content";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 
 interface ProductFormProps {
     product?: Product;
@@ -67,7 +67,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
     const [showPrice, setShowPrice] = useState<boolean>(
         product?.show_price ?? true
     );
-    const [previewMarkdown, setPreviewMarkdown] = useState(false);
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -132,124 +132,98 @@ export function ProductForm({ product, mode }: ProductFormProps) {
             )}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                {/* Left Column - Image Upload */}
-                <div className="lg:order-2 space-y-4">
-                    <label className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em]">
-                        Imagen del Producto
-                    </label>
-                    <ImageUpload
-                        currentImageKey={imageKey}
-                        onUploadComplete={(key) => setImageKey(key || null)}
-                        onUploadError={(err) => setError(err)}
-                    />
-                </div>
+                {/* Left Column - Details */}
+                <div className="space-y-10">
+                    {/* Section: Product Details */}
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center shadow-lg">
+                                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-black text-[#F97316] uppercase tracking-wider">
+                                Detalles del Producto
+                            </h3>
+                        </div>
 
-                {/* Right Column - Form Fields */}
-                <div className="space-y-8 lg:order-1">
-                    {/* Name */}
-                    <div>
-                        <label
-                            htmlFor="name"
-                            className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-4"
-                        >
-                            Nombre del Producto *
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="Ej: Estación Total Leica TS16"
-                            className="w-full px-6 py-4 rounded-2xl bg-zinc-900 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all font-medium"
-                            required
-                        />
-                    </div>
+                        {/* Name */}
+                        <div>
+                            <label
+                                htmlFor="name"
+                                className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-4"
+                            >
+                                Nombre del Equipo *
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="Ej: Estación Total Leica TS16"
+                                className="w-full px-6 py-4 rounded-2xl bg-zinc-900 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all font-medium"
+                                required
+                            />
+                        </div>
 
-                    {/* Description */}
-                    <div>
-                        <div className="flex items-center justify-between mb-4">
+                        {/* Description */}
+                        <div>
                             <label
                                 htmlFor="description"
-                                className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em]"
+                                className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-4"
                             >
-                                Descripción (Markdown)
+                                Descripción del Producto
                             </label>
-                            <button
-                                type="button"
-                                onClick={() => setPreviewMarkdown(!previewMarkdown)}
-                                className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-lg border transition-all ${previewMarkdown
-                                    ? "bg-orange-500/10 border-orange-500/50 text-orange-500"
-                                    : "bg-zinc-800 border-white/5 text-slate-500 hover:text-slate-300"
-                                    }`}
-                            >
-                                {previewMarkdown ? "Editar" : "Previsualizar"}
-                            </button>
-                        </div>
 
-                        {previewMarkdown ? (
-                            <div className="w-full px-6 py-4 rounded-2xl bg-zinc-900 border border-white/10 min-h-[160px] overflow-auto">
-                                {description ? (
-                                    <MarkdownContent content={description} />
-                                ) : (
-                                    <p className="text-slate-600 italic">No hay contenido para previsualizar...</p>
-                                )}
-                            </div>
-                        ) : (
-                            <textarea
-                                id="description"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                                placeholder="Describe detalladamente las características del producto... Puedes usar Markdown (negritas, listas, etc.)"
-                                rows={5}
-                                className="w-full px-6 py-4 rounded-2xl bg-zinc-900 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all resize-none font-medium"
+                            <RichTextEditor
+                                content={description}
+                                onChange={(html) => setDescription(html)}
+                                placeholder="Describe detalladamente las características y especificaciones técnicas del equipo... Usa el editor para agregar formato, tablas, listas, etc."
                             />
-                        )}
-                        <p className="mt-2 text-[10px] text-slate-600 font-bold uppercase tracking-wider">
-                            Soporta: **negrita**, *cursiva*, - listas, [enlaces](url)
-                        </p>
-                    </div>
-
-                    {/* Product Type (Equipment Category) */}
-                    <div>
-                        <label
-                            htmlFor="productType"
-                            className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-4"
-                        >
-                            Tipo de Equipo
-                        </label>
-                        <div className="relative">
-                            <select
-                                id="productType"
-                                value={productTypeId || ""}
-                                onChange={(e) => setProductTypeId(e.target.value || null)}
-                                disabled={loadingTypes}
-                                className="w-full px-6 py-4 rounded-2xl bg-zinc-900 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all appearance-none cursor-pointer font-bold disabled:opacity-50"
-                            >
-                                <option value="">Sin tipo específico</option>
-                                {productTypes.map((type) => (
-                                    <option key={type.id} value={type.id}>
-                                        {type.name}
-                                    </option>
-                                ))}
-                            </select>
-                            <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
+                            <p className="mt-2 text-[10px] text-slate-600 font-bold uppercase tracking-wider">
+                                ✨ Editor profesional: negritas, listas, tablas, alineación, etc.
+                            </p>
                         </div>
-                        <p className="mt-2 text-[10px] text-slate-600 font-bold uppercase tracking-wider">
-                            Categoría del equipo: Estaciones Totales, Niveles, etc.
-                        </p>
-                    </div>
 
-                    {/* Category and Price Row */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        {/* Product Type */}
+                        <div>
+                            <label
+                                htmlFor="productType"
+                                className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-4"
+                            >
+                                Tipo de Equipo
+                            </label>
+                            <div className="relative">
+                                <select
+                                    id="productType"
+                                    value={productTypeId || ""}
+                                    onChange={(e) => setProductTypeId(e.target.value || null)}
+                                    disabled={loadingTypes}
+                                    className="w-full px-6 py-4 rounded-2xl bg-zinc-900 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all appearance-none cursor-pointer font-bold disabled:opacity-50"
+                                >
+                                    <option value="">Sin tipo específico</option>
+                                    {productTypes.map((type) => (
+                                        <option key={type.id} value={type.id}>
+                                            {type.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                            <p className="mt-2 text-[10px] text-slate-600 font-bold uppercase tracking-wider">
+                                Categoría del equipo: Estaciones Totales, Niveles, etc.
+                            </p>
+                        </div>
+
                         {/* Category */}
                         <div>
                             <label
                                 htmlFor="category"
                                 className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-4"
                             >
-                                Categoría
+                                Modalidad
                             </label>
                             <div className="relative">
                                 <select
@@ -269,55 +243,21 @@ export function ProductForm({ product, mode }: ProductFormProps) {
                                 </svg>
                             </div>
                         </div>
-
-                        {/* Price & Show Price */}
-                        <div>
-                            <label
-                                htmlFor="price"
-                                className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-4"
-                            >
-                                Precio (USD)
-                            </label>
-                            <div className="flex flex-col gap-6">
-                                <div className="relative group">
-                                    <span className="absolute left-6 top-1/2 -translate-y-1/2 text-orange-500 font-bold text-lg">
-                                        $
-                                    </span>
-                                    <input
-                                        type="number"
-                                        id="price"
-                                        value={price}
-                                        onChange={(e) => setPrice(e.target.value)}
-                                        placeholder="0.00"
-                                        step="0.01"
-                                        min="0"
-                                        className="w-full pl-12 pr-6 py-4 rounded-2xl bg-zinc-900 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all font-black text-lg"
-                                    />
-                                </div>
-                                <label className="inline-flex items-center cursor-pointer group select-none">
-                                    <div className="relative">
-                                        <input
-                                            type="checkbox"
-                                            className="sr-only"
-                                            checked={showPrice}
-                                            onChange={(e) => setShowPrice(e.target.checked)}
-                                        />
-                                        <div className={`w-12 h-6 rounded-full transition-all duration-300 ease-in-out ${showPrice ? 'bg-orange-600 shadow-[0_0_15px_rgba(234,88,12,0.4)]' : 'bg-zinc-800'}`}></div>
-                                        <div className={`absolute left-1 top-1 w-4 h-4 rounded-full bg-white transition-transform duration-300 ease-in-out ${showPrice ? 'translate-x-6' : 'translate-x-0'}`}></div>
-                                    </div>
-                                    <span className="ml-4 text-sm font-bold text-slate-400 group-hover:text-white transition-colors uppercase tracking-widest">
-                                        Mostrar en catálogo
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
                     </div>
 
-                    {/* Stock Status */}
-                    <div>
-                        <label className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-6">
-                            Estado de Stock
-                        </label>
+                    {/* Section: Stock Status */}
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center shadow-lg">
+                                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-black text-emerald-500 uppercase tracking-wider">
+                                Estado de Stock
+                            </h3>
+                        </div>
+
                         <div className="flex flex-wrap gap-4">
                             {STOCK_STATUSES.map((status) => (
                                 <button
@@ -341,6 +281,85 @@ export function ProductForm({ product, mode }: ProductFormProps) {
                                 </button>
                             ))}
                         </div>
+                    </div>
+                </div>
+
+                {/* Right Column - Pricing & Gallery */}
+                <div className="space-y-10">
+                    {/* Section: Pricing */}
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center shadow-lg">
+                                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.67 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.67-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-black text-cyan-500 uppercase tracking-wider">
+                                Precio y Disponibilidad
+                            </h3>
+                        </div>
+
+                        {/* Price */}
+                        <div>
+                            <label
+                                htmlFor="price"
+                                className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-4"
+                            >
+                                Precio (USD)
+                            </label>
+                            <div className="relative group">
+                                <span className="absolute left-6 top-1/2 -translate-y-1/2 text-orange-500 font-bold text-lg">
+                                    $
+                                </span>
+                                <input
+                                    type="number"
+                                    id="price"
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)}
+                                    placeholder="0.00"
+                                    step="0.01"
+                                    min="0"
+                                    className="w-full pl-12 pr-6 py-4 rounded-2xl bg-zinc-900 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all font-black text-lg"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Show Price Toggle */}
+                        <label className="inline-flex items-center cursor-pointer group select-none">
+                            <div className="relative">
+                                <input
+                                    type="checkbox"
+                                    className="sr-only"
+                                    checked={showPrice}
+                                    onChange={(e) => setShowPrice(e.target.checked)}
+                                />
+                                <div className={`w-14 h-7 rounded-full transition-all duration-300 ease-in-out ${showPrice ? 'bg-orange-600 shadow-[0_0_15px_rgba(234,88,12,0.4)]' : 'bg-zinc-800'}`}></div>
+                                <div className={`absolute left-1 top-1 w-5 h-5 rounded-full bg-white transition-transform duration-300 ease-in-out ${showPrice ? 'translate-x-7' : 'translate-x-0'}`}></div>
+                            </div>
+                            <span className="ml-4 text-sm font-bold text-slate-400 group-hover:text-white transition-colors uppercase tracking-widest">
+                                Mostrar en catálogo
+                            </span>
+                        </label>
+                    </div>
+
+                    {/* Section: Gallery */}
+                    <div className="space-y-6">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center shadow-lg">
+                                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-black text-purple-500 uppercase tracking-wider">
+                                Galería del Equipo
+                            </h3>
+                        </div>
+
+                        <ImageUpload
+                            currentImageKey={imageKey}
+                            onUploadComplete={(key) => setImageKey(key || null)}
+                            onUploadError={(err) => setError(err)}
+                        />
                     </div>
                 </div>
             </div>
