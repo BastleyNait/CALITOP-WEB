@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ImageUpload } from "./image-upload";
-import { getProductById, createProduct, updateProduct, ProductFormData } from "@/actions/products";
-import { Product, ProductCategory, StockStatus } from "@/types/database";
+import { createProduct, updateProduct, ProductFormData } from "@/actions/products";
+import { getProductTypes } from "@/actions/product-types";
+import { Product, ProductCategory, StockStatus, ProductType } from "@/types/database";
 import { MarkdownContent } from "@/components/ui/markdown-content";
 
 interface ProductFormProps {
@@ -29,11 +30,30 @@ export function ProductForm({ product, mode }: ProductFormProps) {
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | null>(null);
 
+    // Product types from database
+    const [productTypes, setProductTypes] = useState<ProductType[]>([]);
+    const [loadingTypes, setLoadingTypes] = useState(true);
+
+    // Fetch product types on mount
+    useEffect(() => {
+        async function fetchTypes() {
+            const result = await getProductTypes();
+            if (result.success && result.data) {
+                setProductTypes(result.data);
+            }
+            setLoadingTypes(false);
+        }
+        fetchTypes();
+    }, []);
+
     // Form state
     const [name, setName] = useState(product?.name || "");
     const [description, setDescription] = useState(product?.description || "");
     const [category, setCategory] = useState<ProductCategory>(
         product?.category || "VENTA"
+    );
+    const [productTypeId, setProductTypeId] = useState<string | null>(
+        product?.product_type_id || null
     );
     const [price, setPrice] = useState<string>(
         product?.price?.toString() || ""
@@ -63,6 +83,7 @@ export function ProductForm({ product, mode }: ProductFormProps) {
             name: name.trim(),
             description: description.trim(),
             category,
+            productTypeId,
             price: price ? parseFloat(price) : null,
             imageKey,
             stockStatus,
@@ -185,6 +206,38 @@ export function ProductForm({ product, mode }: ProductFormProps) {
                         )}
                         <p className="mt-2 text-[10px] text-slate-600 font-bold uppercase tracking-wider">
                             Soporta: **negrita**, *cursiva*, - listas, [enlaces](url)
+                        </p>
+                    </div>
+
+                    {/* Product Type (Equipment Category) */}
+                    <div>
+                        <label
+                            htmlFor="productType"
+                            className="block text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-4"
+                        >
+                            Tipo de Equipo
+                        </label>
+                        <div className="relative">
+                            <select
+                                id="productType"
+                                value={productTypeId || ""}
+                                onChange={(e) => setProductTypeId(e.target.value || null)}
+                                disabled={loadingTypes}
+                                className="w-full px-6 py-4 rounded-2xl bg-zinc-900 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all appearance-none cursor-pointer font-bold disabled:opacity-50"
+                            >
+                                <option value="">Sin tipo específico</option>
+                                {productTypes.map((type) => (
+                                    <option key={type.id} value={type.id}>
+                                        {type.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                        <p className="mt-2 text-[10px] text-slate-600 font-bold uppercase tracking-wider">
+                            Categoría del equipo: Estaciones Totales, Niveles, etc.
                         </p>
                     </div>
 

@@ -5,7 +5,11 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: process.env.R2_PUBLIC_DOMAIN || "**.r2.dev",
+                hostname: process.env.R2_PUBLIC_DOMAIN?.split('/')[0] || "**.r2.dev",
+            },
+            {
+                protocol: "https",
+                hostname: "f005.backblazeb2.com",
             },
             {
                 protocol: "https",

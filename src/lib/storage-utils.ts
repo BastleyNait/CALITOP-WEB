@@ -24,5 +24,15 @@ export function getPublicUrl(imageKey: string | null | undefined): string {
 
     // Ensure no double slashes
     const cleanKey = imageKey.startsWith("/") ? imageKey.slice(1) : imageKey;
-    return `https://${publicDomain}/${cleanKey}`;
+
+    // For Backblaze B2, the domain might already include /file/BUCKET, so check for that
+    const domainHasPath = publicDomain.includes('/file/');
+
+    if (domainHasPath) {
+        // Domain is like: f005.backblazeb2.com/file/CALITOP
+        return `https://${publicDomain}/${cleanKey}`;
+    } else {
+        // Standard R2 or custom domain
+        return `https://${publicDomain}/${cleanKey}`;
+    }
 }

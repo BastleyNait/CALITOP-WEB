@@ -27,6 +27,7 @@ export const metadata: Metadata = {
 
 import { ThemeProvider } from "@/components/theme-provider";
 import WhatsAppButton from "@/components/ui/whatsapp-button";
+import Footer from "@/components/ui/footer";
 
 export default function RootLayout({
     children,
@@ -44,6 +45,7 @@ export default function RootLayout({
                 >
                     <Navbar />
                     <main>{children}</main>
+                    <Footer />
                     <WhatsAppButton />
                 </ThemeProvider>
             </body>

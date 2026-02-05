@@ -9,11 +9,25 @@ export type Json =
 export type ProductCategory = "VENTA" | "ALQUILER" | "SERVICIO";
 export type StockStatus = "IN_STOCK" | "IMPORTATION" | "OUT_OF_STOCK";
 
+// Tipo de equipo/categoría de producto (dinámica desde DB)
+export interface ProductType {
+    id: string;
+    name: string;
+    slug: string;
+    icon: string | null;
+    color: string | null;
+    sort_order: number;
+    is_active: boolean;
+    created_at: string;
+}
+
 export interface Product {
     id: string;
     name: string;
     description: string | null;
     category: ProductCategory;
+    product_type_id: string | null;  // Referencia a ProductType
+    product_type?: ProductType;       // Join opcional
     price: number | null;
     image_key: string | null;
     stock_status: StockStatus;

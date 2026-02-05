@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import FadeContent from "@/components/FadeContent";
+import { ArrowRight, Phone, CheckCircle2 } from "lucide-react";
 
 const backgroundImages = [
     "/images/products/en-campo.png",
@@ -13,27 +13,46 @@ const backgroundImages = [
     "/images/products/inspeccion-drone.png",
 ];
 
+// Imágenes del carrusel principal (Backblaze B2)
+const heroCarouselImages = [
+    {
+        src: "https://f005.backblazeb2.com/file/CALITOP/img/estaciones-hero.webp",
+        alt: "Estaciones totales de alta precisión - CALITOP"
+    },
+    {
+        src: "https://f005.backblazeb2.com/file/CALITOP/img/niveles-hero.webp",
+        alt: "Niveles topográficos certificados - CALITOP"
+    }
+];
+
+const features = [
+    "Calibración Certificada",
+    "Servicio Técnico Especializado",
+    "Equipos de Primera Línea",
+];
+
 export const HeroMaquitop = () => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-        }, 5000);
+        }, 6000);
         return () => clearInterval(timer);
     }, []);
 
     return (
-        <section className="relative min-h-screen w-full overflow-hidden bg-[#050505]">
-            {/* Background Image Slideshow */}
+        <section className="relative min-h-screen w-full overflow-hidden">
+            {/* Background Layers */}
             <div className="absolute inset-0 z-0">
+                {/* Image Slideshow */}
                 <AnimatePresence initial={false}>
                     <motion.div
                         key={currentImageIndex}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.25 }}
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 0.3, scale: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 2, ease: "linear" }}
+                        transition={{ duration: 2, ease: "easeOut" }}
                         className="absolute inset-0"
                     >
                         <Image
@@ -45,134 +64,309 @@ export const HeroMaquitop = () => {
                         />
                     </motion.div>
                 </AnimatePresence>
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
+
+                {/* Mesh Gradient Overlay */}
+                <div className="absolute inset-0 mesh-gradient opacity-90" />
+
+                {/* Radial Gradient for Depth */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
+
+                {/* Side Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent" />
             </div>
 
-            {/* Decorative Arc (like Maquitop) */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none z-10 hidden lg:block">
-                <svg viewBox="0 0 600 600" fill="none" className="w-full h-full">
-                    <circle
-                        cx="300"
-                        cy="300"
-                        r="280"
-                        stroke="url(#arcGradient)"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeDasharray="400 1000"
-                        transform="rotate(-30 300 300)"
-                    />
-                    <defs>
-                        <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#F97316" />
-                            <stop offset="100%" stopColor="#FB923C" />
-                        </linearGradient>
-                    </defs>
-                </svg>
+            {/* Decorative Elements */}
+            <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+                {/* Floating Orbs */}
+                <motion.div
+                    animate={{
+                        y: [0, -30, 0],
+                        opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-orange-500/10 blur-[120px]"
+                />
+                <motion.div
+                    animate={{
+                        y: [0, 20, 0],
+                        opacity: [0.2, 0.4, 0.2],
+                    }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-orange-600/8 blur-[100px]"
+                />
+
+                {/* Decorative Arc */}
+                <div className="hidden xl:block absolute right-0 top-1/2 -translate-y-1/2 w-[700px] h-[700px]">
+                    <svg viewBox="0 0 700 700" fill="none" className="w-full h-full">
+                        <defs>
+                            <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#F97316" stopOpacity="0.6" />
+                                <stop offset="50%" stopColor="#FB923C" stopOpacity="0.3" />
+                                <stop offset="100%" stopColor="#F97316" stopOpacity="0.1" />
+                            </linearGradient>
+                        </defs>
+                        <motion.circle
+                            cx="350"
+                            cy="350"
+                            r="300"
+                            stroke="url(#arcGradient)"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeDasharray="500 1200"
+                            fill="none"
+                            initial={{ rotate: 0 }}
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+                            style={{ transformOrigin: "center" }}
+                        />
+                        <motion.circle
+                            cx="350"
+                            cy="350"
+                            r="250"
+                            stroke="url(#arcGradient)"
+                            strokeWidth="1"
+                            strokeLinecap="round"
+                            strokeDasharray="300 800"
+                            fill="none"
+                            initial={{ rotate: 180 }}
+                            animate={{ rotate: -180 }}
+                            transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+                            style={{ transformOrigin: "center" }}
+                        />
+                    </svg>
+                </div>
             </div>
 
-            {/* Content */}
-            <div className="relative z-20 max-w-7xl mx-auto px-6 lg:px-8 min-h-screen flex items-center">
-                <div className="grid lg:grid-cols-2 gap-12 items-center w-full py-24">
+            {/* Main Content */}
+            <div className="relative z-20 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 min-h-screen flex items-center">
+                <div className="grid lg:grid-cols-2 gap-12 xl:gap-20 items-center w-full py-28 lg:py-32">
                     {/* Left: Text Content */}
-                    <FadeContent blur={true} duration={800} delay={200} initialOpacity={0}>
-                        <div className="space-y-8">
-                            {/* Dual Logos */}
-                            <div className="flex items-center gap-4 mb-6">
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="space-y-8"
+                    >
+                        {/* Dual Logos */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="flex items-center gap-4"
+                        >
+                            <div className="relative w-36 h-12 sm:w-44 sm:h-14">
                                 <Image
                                     src="/images/products/logo.png"
                                     alt="CALITOP Logo"
-                                    width={140}
-                                    height={45}
-                                    className="h-10 w-auto object-contain brightness-110"
+                                    fill
+                                    className="object-contain brightness-110"
                                     priority
                                 />
-                                <div className="w-px h-8 bg-slate-500" />
+                            </div>
+                            <div className="w-px h-10 bg-gradient-to-b from-transparent via-orange-500/50 to-transparent" />
+                            <div className="relative w-40 h-14 sm:w-52 sm:h-16">
                                 <Image
                                     src="/images/products/logo2.png"
                                     alt="TOPSERVICE Logo"
-                                    width={220}
-                                    height={70}
-                                    className="h-16 w-auto object-contain brightness-110"
+                                    fill
+                                    className="object-contain brightness-110"
                                     priority
                                 />
                             </div>
+                        </motion.div>
 
-                            {/* Main Heading */}
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight">
-                                Soluciones para tus{" "}
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F97316] to-[#FB923C]">
-                                    Proyectos
-                                </span>
-                            </h1>
+                        {/* Main Heading */}
+                        <motion.h1
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.8 }}
+                            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.1] tracking-tight"
+                        >
+                            Precisión que{" "}
+                            <span className="block">
+                                <span className="text-gradient-orange">Construye</span>{" "}
+                                <span className="text-white">Confianza</span>
+                            </span>
+                        </motion.h1>
 
-                            {/* Description */}
-                            <p className="text-lg text-slate-300 max-w-xl leading-relaxed">
-                                Empresa dedicada al servicio técnico y venta de equipos topográficos.
-                                Calibración, reparación, mantenimiento y comercialización de instrumentos de precisión.
-                            </p>
+                        {/* Description */}
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6 }}
+                            className="text-lg lg:text-xl text-slate-400 max-w-xl leading-relaxed"
+                        >
+                            Líderes en topografía industrial, calibración certificada y equipamiento
+                            técnico de última generación para proyectos de alta envergadura.
+                        </motion.p>
 
-                            {/* CTA Buttons */}
-                            <div className="flex flex-wrap gap-4 pt-4">
-                                <Link
-                                    href="https://wa.me/51933588122"
-                                    target="_blank"
-                                    className="px-8 py-4 bg-[#F97316] text-white font-bold rounded-lg hover:bg-orange-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-orange-500/30 flex items-center gap-2"
+                        {/* Features List */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.7 }}
+                            className="flex flex-wrap gap-4"
+                        >
+                            {features.map((feature, index) => (
+                                <div
+                                    key={feature}
+                                    className="flex items-center gap-2 text-sm text-slate-300"
                                 >
-                                    Contáctanos
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                    </svg>
-                                </Link>
-                                <Link
-                                    href="/products"
-                                    className="px-8 py-4 border-2 border-white/10 text-white font-bold rounded-lg hover:bg-white/5 transition-all"
-                                >
-                                    Ver Productos
-                                </Link>
-                            </div>
-                        </div>
-                    </FadeContent>
+                                    <CheckCircle2 className="w-4 h-4 text-orange-500" />
+                                    <span>{feature}</span>
+                                </div>
+                            ))}
+                        </motion.div>
 
-                    {/* Right: Equipment Images */}
-                    <FadeContent blur={true} duration={800} delay={400} initialOpacity={0}>
-                        <div className="relative hidden lg:block">
-                            <motion.div
-                                initial={{ opacity: 0, x: 50 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.8, delay: 0.5 }}
-                                className="relative z-10"
+                        {/* CTA Buttons */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.8 }}
+                            className="flex flex-wrap gap-4 pt-4"
+                        >
+                            <Link
+                                href="/products"
+                                className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl overflow-hidden"
                             >
-                                <Image
-                                    src="/images/products/calibracion.png"
-                                    alt="Equipos Topográficos"
-                                    width={600}
-                                    height={500}
-                                    className="object-contain drop-shadow-2xl"
-                                    priority
-                                />
-                            </motion.div>
-                        </div>
-                    </FadeContent>
+                                {/* Gradient Background */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-300 group-hover:from-orange-400 group-hover:to-orange-500" />
+
+                                {/* Shimmer Effect */}
+                                <div className="absolute inset-0 shimmer" />
+
+                                {/* Glow */}
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-orange-500/30 blur-2xl -z-10" />
+
+                                <span className="relative z-10 text-white font-bold text-base">
+                                    Explorar Calitop
+                                </span>
+                                <ArrowRight className="relative z-10 w-5 h-5 text-white transition-transform group-hover:translate-x-1" />
+                            </Link>
+
+                            <Link
+                                href="/technical-service"
+                                className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl glass-card card-glow"
+                            >
+                                <span className="text-white font-bold text-base">
+                                    Explorar Topservice
+                                </span>
+                                <ArrowRight className="w-5 h-5 text-slate-400 transition-all group-hover:text-orange-500 group-hover:translate-x-1" />
+                            </Link>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* Right: Equipment Image + Stats */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="relative hidden lg:block"
+                    >
+
+                        {/*
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 1, delay: 0.6 }}
+                            className="relative z-10"
+                        >
+                            <Image
+                                src="/images/products/calibracion.png"
+                                alt="Equipos Topográficos"
+                                width={650}
+                                height={550}
+                                className="object-contain drop-shadow-2xl"
+                                priority
+                            />
+                        </motion.div>
+
+                        */}
+                        {/* Main Equipment Image */}
+
+                        {/* Infinite Loop Image Carousel */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1 }}
+                            className="relative flex items-center justify-center w-full h-[400px] xl:h-[450px]"
+                        >
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={currentImageIndex % heroCarouselImages.length}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 1.02 }}
+                                    transition={{ duration: 1.2, ease: "easeInOut" }}
+                                    className="absolute inset-0 flex items-center justify-center"
+                                >
+                                    <Image
+                                        src={heroCarouselImages[currentImageIndex % heroCarouselImages.length].src}
+                                        alt={heroCarouselImages[currentImageIndex % heroCarouselImages.length].alt}
+                                        width={600}
+                                        height={400}
+                                        className="object-contain max-h-full drop-shadow-2xl"
+                                        priority
+                                    />
+                                </motion.div>
+                            </AnimatePresence>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </div>
+
+            {/* Mobile Image - Below Content */}
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 }}
+                className="lg:hidden relative z-20 pb-12 px-4 flex justify-center"
+            >
+                <div className="relative w-full max-w-[350px] h-[250px] flex items-center justify-center">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={currentImageIndex % heroCarouselImages.length}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 1.02 }}
+                            transition={{ duration: 1.2, ease: "easeInOut" }}
+                            className="absolute inset-0 flex items-center justify-center"
+                        >
+                            <Image
+                                src={heroCarouselImages[currentImageIndex % heroCarouselImages.length].src}
+                                alt={heroCarouselImages[currentImageIndex % heroCarouselImages.length].alt}
+                                width={350}
+                                height={250}
+                                className="object-contain max-h-full drop-shadow-2xl"
+                            />
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+            </motion.div>
 
             {/* Scroll Indicator */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden lg:block"
             >
-                <div className="flex flex-col items-center gap-2 text-slate-400">
-                    <span className="text-xs uppercase tracking-widest">Scroll</span>
-                    <motion.div
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="w-6 h-10 rounded-full border-2 border-slate-500 flex items-start justify-center p-2"
-                    >
-                        <div className="w-1 h-2 bg-slate-400 rounded-full" />
-                    </motion.div>
-                </div>
+                <motion.div
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="flex flex-col items-center gap-3"
+                >
+                    <span className="text-xs uppercase tracking-[0.2em] text-slate-500 font-medium">
+                        Descubre más
+                    </span>
+                    <div className="w-6 h-10 rounded-full border-2 border-slate-600 flex items-start justify-center p-1.5">
+                        <motion.div
+                            animate={{ y: [0, 12, 0] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                            className="w-1.5 h-3 bg-orange-500 rounded-full"
+                        />
+                    </div>
+                </motion.div>
             </motion.div>
         </section>
     );

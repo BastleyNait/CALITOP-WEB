@@ -3,7 +3,6 @@
 import { useState, useCallback, useRef } from "react";
 import Image from "next/image";
 import imageCompression from "browser-image-compression";
-import { getPresignedUploadUrl } from "@/actions/storage";
 import { getPublicUrl } from "@/lib/storage-utils";
 
 interface ImageUploadProps {
@@ -67,41 +66,49 @@ export function ImageUpload({
                 setPreviewUrl(localPreview);
                 setUploadProgress(25);
 
-                // 2. Get presigned URL from server
-                const result = await getPresignedUploadUrl(optimizedFile.name, optimizedFile.type);
-                if (!result.success || !result.uploadUrl || !result.imageKey) {
-                    throw new Error(result.error || "Error al obtener la URL de subida");
-                }
+                // 2. Upload file through server API (bypasses CORS)
+                const formData = new FormData();
+                formData.append('file', optimizedFile);
 
-                console.log(`[Upload] Prepared URL: ${result.uploadUrl.split('?')[0]}...`);
+                console.log(`[Upload] Sending to server: ${optimizedFile.name}`);
                 setUploadProgress(40);
 
-                // 3. Upload file directly to Bucket
-                const uploadResponse = await fetch(result.uploadUrl, {
-                    method: "PUT",
-                    body: optimizedFile,
-                    headers: {
-                        "Content-Type": optimizedFile.type,
-                    },
+                const uploadResponse = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData,
                 });
 
                 if (!uploadResponse.ok) {
-                    throw new Error("Error al subir el archivo al almacenamiento");
+                    const errorData = await uploadResponse.json().catch(() => ({ error: 'Unknown error' }));
+                    console.error('[Upload Response Error]', {
+                        status: uploadResponse.status,
+                        statusText: uploadResponse.statusText,
+                        error: errorData
+                    });
+                    throw new Error(errorData.error || `Error al subir el archivo: ${uploadResponse.status}`);
                 }
+
                 setUploadProgress(90);
+
+                const result = await uploadResponse.json();
+
+                if (!result.success || !result.imageKey) {
+                    throw new Error(result.error || "Error al procesar la respuesta del servidor");
+                }
 
                 // Clean up local preview and use the actual URL
                 URL.revokeObjectURL(localPreview);
                 const finalUrl = result.publicUrl || "";
 
                 // Connection Check Log
-                console.log(`[Bucket Connection] Success! Image available at: ${finalUrl}`);
+                console.log(`[Upload Success] Image available at: ${finalUrl}`);
+                console.log(`[Image Key] Stored as: ${result.imageKey}`);
 
                 setPreviewUrl(finalUrl);
                 setUploadProgress(100);
 
-                // Notify parent component
-                onUploadComplete(finalUrl);
+                // Notify parent component with the imageKey (not the full URL)
+                onUploadComplete(result.imageKey);
             } catch (err) {
                 const errorMessage = err instanceof Error ? err.message : "Error en la subida";
                 console.error("[Upload Error Detail]", {

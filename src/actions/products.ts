@@ -9,6 +9,7 @@ export interface ProductFormData {
     name: string;
     description: string;
     category: ProductCategory;
+    productTypeId: string | null;  // Tipo de equipo (Estaciones, Niveles, etc.)
     price: number | null;
     imageKey: string | null;
     stockStatus: StockStatus;
@@ -28,7 +29,10 @@ export async function getProducts(): Promise<ActionResult<Product[]>> {
     try {
         const supabase = await createClient();
         const { data, error } = await (supabase.from("products") as any)
-            .select("*")
+            .select(`
+                *,
+                product_type:product_types(*)
+            `)
             .order("created_at", { ascending: false });
 
         if (error) {
@@ -83,29 +87,52 @@ export async function createProduct(
     formData: ProductFormData
 ): Promise<ActionResult<Product>> {
     try {
-        const supabase = await createClient();
+        // Import admin client
+        const { createAdminClient } = await import("@/lib/supabase/admin");
+        const supabase = createAdminClient();
+
+        console.log("[Create Product] Starting with data:", {
+            name: formData.name,
+            category: formData.category,
+            price: formData.price,
+            imageKey: formData.imageKey,
+            stockStatus: formData.stockStatus,
+            showPrice: formData.showPrice
+        });
 
         const { data, error } = await (supabase.from("products") as any)
             .insert({
                 name: formData.name,
                 description: formData.description || null,
                 category: formData.category,
+                product_type_id: formData.productTypeId,
                 price: formData.price,
                 image_key: formData.imageKey,
                 stock_status: formData.stockStatus,
                 show_price: formData.showPrice,
             })
-            .select()
+            .select(`
+                *,
+                product_type:product_types(*)
+            `)
             .single();
 
         if (error) {
+            console.error("[Create Product] Supabase error:", {
+                code: error.code,
+                message: error.message,
+                details: error.details,
+                hint: error.hint
+            });
             throw error;
         }
+
+        console.log("[Create Product] Success:", data);
 
         revalidatePath("/admin/products");
         return { success: true, data };
     } catch (error) {
-        console.error("Error creating product:", error);
+        console.error("[Create Product] Exception:", error);
         return {
             success: false,
             error: error instanceof Error ? error.message : "Failed to create product",
@@ -122,20 +149,26 @@ export async function updateProduct(
     oldImageKey?: string
 ): Promise<ActionResult<Product>> {
     try {
-        const supabase = await createClient();
+        // Import admin client
+        const { createAdminClient } = await import("@/lib/supabase/admin");
+        const supabase = createAdminClient();
 
         const { data, error } = await (supabase.from("products") as any)
             .update({
                 name: formData.name,
                 description: formData.description || null,
                 category: formData.category,
+                product_type_id: formData.productTypeId,
                 price: formData.price,
                 image_key: formData.imageKey,
                 stock_status: formData.stockStatus,
                 show_price: formData.showPrice,
             })
             .eq("id", id)
-            .select()
+            .select(`
+                *,
+                product_type:product_types(*)
+            `)
             .single();
 
         if (error) {
@@ -164,7 +197,9 @@ export async function updateProduct(
  */
 export async function deleteProduct(id: string): Promise<ActionResult> {
     try {
-        const supabase = await createClient();
+        // Import admin client
+        const { createAdminClient } = await import("@/lib/supabase/admin");
+        const supabase = createAdminClient();
 
         // First, get the product to retrieve the image key
         const { data: product, error: fetchError } = await (supabase.from("products") as any)
