@@ -21,7 +21,7 @@ export default function ProductDetailClient({ product, imageUrl }: ProductDetail
     };
 
     return (
-        <div className="min-h-screen pt-20 pb-12 relative overflow-hidden">
+        <div className="mt-4 min-h-screen pt-20 pb-12 relative overflow-hidden">
             {/* Mesh Gradient Background */}
             <div className="fixed inset-0 -z-10">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-orange-950/20 via-slate-950 to-black" />

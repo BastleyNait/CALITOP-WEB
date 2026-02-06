@@ -23,11 +23,18 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
     const whatsappNumber = "51933588122";
     const [selectedType, setSelectedType] = useState<string | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-    // Filter products by selected type
-    const filteredProducts = selectedType
-        ? initialProducts.filter(p => p.product_type_id === selectedType)
-        : initialProducts;
+    // Filter products by selected type AND search term
+    const filteredProducts = initialProducts.filter(p => {
+        const matchesType = selectedType ? p.product_type_id === selectedType : true;
+        const matchesSearch = searchTerm
+            ? p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            p.description?.toLowerCase().includes(searchTerm.toLowerCase())
+            : true;
+        return matchesType && matchesSearch;
+    });
 
     const handleQuote = (productName: string) => {
         const message = encodeURIComponent(`Hola, deseo información sobre: ${productName}`);
@@ -180,9 +187,9 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
             <div className="py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
 
-                    {/* Category Filter - Modern Design */}
+                    {/* Filter and Search Controls */}
                     <div className="mb-16">
-                        <div className="max-w-2xl">
+                        <div className="flex items-start gap-4 max-w-7xl">
 
                             {/* Modern Filter Dropdown */}
                             <div className="relative">
@@ -279,6 +286,73 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                                     </div>
                                 </div>
                             )}
+
+                            {/* Search Component */}
+                            <div className="flex-1 flex justify-end">
+                                <AnimatePresence mode="wait">
+                                    {!isSearchOpen ? (
+                                        <motion.button
+                                            key="search-button"
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0, scale: 0.8 }}
+                                            onClick={() => setIsSearchOpen(true)}
+                                            className="group flex items-center justify-center w-16 h-16 rounded-2xl bg-black/60 border border-white/10 
+                                                     hover:border-orange-500/50 transition-all duration-300 backdrop-blur-sm hover:bg-black/80"
+                                            title="Buscar productos"
+                                        >
+                                            <svg
+                                                className="w-6 h-6 text-orange-500 group-hover:scale-110 transition-transform"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
+                                        </motion.button>
+                                    ) : (
+                                        <motion.div
+                                            key="search-input"
+                                            initial={{ opacity: 0, width: 0 }}
+                                            animate={{ opacity: 1, width: "100%" }}
+                                            exit={{ opacity: 0, width: 0 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="relative w-full max-w-2xl"
+                                        >
+                                            <svg
+                                                className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-500"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                            </svg>
+                                            <input
+                                                type="text"
+                                                placeholder="Buscar productos..."
+                                                value={searchTerm}
+                                                onChange={(e) => setSearchTerm(e.target.value)}
+                                                autoFocus
+                                                className="w-full pl-14 pr-14 py-5 rounded-2xl bg-black/60 border border-white/10 
+                                                         text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-orange-500/50 
+                                                         focus:border-orange-500 transition-all backdrop-blur-sm font-medium"
+                                            />
+                                            <button
+                                                onClick={() => {
+                                                    setIsSearchOpen(false);
+                                                    setSearchTerm("");
+                                                }}
+                                                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-lg hover:bg-white/10 transition-colors text-slate-400 hover:text-white"
+                                                title="Cerrar búsqueda"
+                                            >
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                         </div>
                     </div>
 

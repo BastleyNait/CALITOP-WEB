@@ -27,7 +27,7 @@ export default async function EditProductPage({ params }: EditProductPageProps) 
     const product = result.data;
 
     return (
-        <div className="relative min-h-screen w-full overflow-hidden bg-background">
+        <div className="mt-4 relative min-h-screen w-full overflow-hidden bg-background">
 
             <div className="relative z-10 py-12 px-4 md:px-12">
                 <div className="max-w-[1400px] mx-auto">

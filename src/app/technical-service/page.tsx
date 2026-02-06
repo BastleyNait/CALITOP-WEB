@@ -82,8 +82,8 @@ export default function TechnicalServicePage() {
                             transition={{ duration: 0.6, delay: 0.1 }}
                             className="text-5xl md:text-6xl lg:text-7xl font-black text-foreground tracking-tight mb-8"
                         >
-                            Servicio Técnico{" "}
-                            <span className="text-gradient-orange">Elite</span>
+                            Servicio {" "}
+                            <span className="text-gradient-orange">Técnico</span>
                         </motion.h1>
 
                         <motion.p

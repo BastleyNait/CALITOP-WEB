@@ -26,7 +26,7 @@ export default async function AdminProductsPage() {
     const outOfStock = products.filter(p => p.stock_status === 'OUT_OF_STOCK').length;
 
     return (
-        <div className="min-h-screen bg-background pt-24 pb-12 px-4 sm:px-6 lg:px-8">\n            <div className="max-w-7xl mx-auto space-y-8">
+        <div className="min-h-screen bg-background mt-4 pt-24 pb-12 px-4 sm:px-6 lg:px-8">           <div className="max-w-7xl mx-auto space-y-8">
             {/* Header */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
