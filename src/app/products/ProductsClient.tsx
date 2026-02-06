@@ -22,6 +22,7 @@ interface ProductsClientProps {
 export default function ProductsClient({ initialProducts, publicUrls, productTypes }: ProductsClientProps) {
     const whatsappNumber = "51933588122";
     const [selectedType, setSelectedType] = useState<string | null>(null);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     // Filter products by selected type
     const filteredProducts = selectedType
@@ -50,7 +51,7 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
     }, []);
 
     return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-background overflow-x-hidden">
             {/* Full Viewport Header with Carousel */}
             <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center">
                 {/* Background Layers */}
@@ -59,7 +60,7 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                     <motion.div
                         key={currentImageIndex}
                         initial={{ opacity: 0, scale: 1.1 }}
-                        animate={{ opacity: 0.3, scale: 1 }}
+                        animate={{ opacity: 0.25, scale: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 2, ease: "easeOut" }}
                         className="absolute inset-0"
@@ -74,13 +75,13 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                     </motion.div>
 
                     {/* Mesh Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-radial from-background/50 via-background/80 to-background opacity-90" />
+                    <div className="absolute inset-0 mesh-gradient opacity-80" />
 
                     {/* Radial Gradient for Depth */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
 
                     {/* Side Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
                 </div>
 
                 {/* Decorative Elements */}
@@ -100,53 +101,64 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                             opacity: [0.2, 0.4, 0.2],
                         }}
                         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                        className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-orange-600/8 blur-[100px]"
+                        className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/8 blur-[100px]"
                     />
                 </div>
 
-                <div className="absolute inset-0 z-20 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-                    <div className="w-full">
-                        <div className="text-center space-y-8 max-w-5xl mx-auto">
-                            <FadeContent blur={true} duration={600} delay={0} initialOpacity={0}>
-                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-4">
-                                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
-                                    <span className="text-orange-500 font-black uppercase tracking-widest text-xs">Catálogo Profesional</span>
+                <div className="relative z-20 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 py-32">
+                    <div className="text-center max-w-5xl mx-auto">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8">
+                                <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
+                                <span className="text-orange-500 font-black uppercase tracking-widest text-xs">Catálogo Profesional</span>
+                            </div>
+                        </motion.div>
+
+                        <motion.h1
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            className="text-5xl md:text-6xl lg:text-7xl font-black text-foreground tracking-tight mb-8"
+                        >
+                            Catálogo de{" "}
+                            <span className="text-gradient-orange">Equipos</span>
+                        </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            className="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed"
+                        >
+                            Equipos topográficos <span className="text-orange-400 font-bold">nuevos y de segundo uso</span>.
+                            Importación directa de las mejores marcas del mercado.
+                        </motion.p>
+
+                        {/* Stats */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                            className="flex items-center justify-center gap-12"
+                        >
+                            <div className="text-center">
+                                <div className="text-4xl font-black bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                                    100%
                                 </div>
-                            </FadeContent>
-
-                            
-                            <FadeContent blur={true} duration={800} delay={300} initialOpacity={0}>
-                                <p className="text-slate-300 leading-relaxed drop-shadow-lg text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white drop-shadow-3xl ">
-                                    Catálogo de Equipos
-                                </p>
-                            </FadeContent>
-
-                            <FadeContent blur={true} duration={800} delay={300} initialOpacity={0}>
-                                <p className="text-slate-300 max-w-3xl mx-auto text-lg md:text-xl font-medium leading-relaxed drop-shadow-lg">
-                                    Equipos topográficos <span className="text-orange-400 font-bold">nuevos y de segundo uso</span>.
-                                    Importación directa de las mejores marcas del mercado.
-                                </p>
-                            </FadeContent>
-
-                            {/* Stats - Simplified */}
-                            <FadeContent blur={true} duration={800} delay={500} initialOpacity={0}>
-                                <div className="flex items-center justify-center gap-12 pt-8">
-                                    <div className="text-center">
-                                        <div className="text-4xl font-black bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent drop-shadow-lg">
-                                            100%
-                                        </div>
-                                        <div className="text-xs text-slate-400 font-bold uppercase tracking-wider mt-2">Garantía Oficial</div>
-                                    </div>
-                                    <div className="h-16 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-                                    <div className="text-center">
-                                        <div className="text-4xl font-black bg-gradient-to-r from-cyan-400 to-cyan-600 bg-clip-text text-transparent drop-shadow-lg">
-                                            24/7
-                                        </div>
-                                        <div className="text-xs text-slate-400 font-bold uppercase tracking-wider mt-2">Soporte Técnico</div>
-                                    </div>
+                                <div className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-2">Garantía Oficial</div>
+                            </div>
+                            <div className="h-16 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+                            <div className="text-center">
+                                <div className="text-4xl font-black bg-gradient-to-r from-cyan-400 to-cyan-600 bg-clip-text text-transparent">
+                                    24/7
                                 </div>
-                            </FadeContent>
-                        </div>
+                                <div className="text-xs text-slate-500 font-bold uppercase tracking-wider mt-2">Soporte Técnico</div>
+                            </div>
+                        </motion.div>
                     </div>
                 </div>
 
@@ -170,12 +182,12 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
 
                     {/* Category Filter - Modern Design */}
                     <div className="mb-16">
-                        <div className="max-w-2xl">                            
+                        <div className="max-w-2xl">
 
                             {/* Modern Filter Dropdown */}
                             <div className="relative">
                                 <button
-                                    onClick={() => setSelectedType(null)}
+                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                     className="w-full group"
                                 >
                                     <div className="flex items-center gap-4 px-6 py-5 rounded-2xl bg-black/60 border border-white/10 
@@ -203,7 +215,8 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
 
                                         {/* Arrow */}
                                         <svg
-                                            className="w-5 h-5 text-orange-500 transition-transform group-hover:translate-y-0.5"
+                                            className={`w-5 h-5 text-orange-500 transition-transform ${isDropdownOpen ? 'rotate-180' : ''
+                                                }`}
                                             fill="none"
                                             stroke="currentColor"
                                             viewBox="0 0 24 24"
@@ -214,27 +227,38 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                                 </button>
 
                                 {/* Dropdown Menu */}
-                                <div className="absolute top-full left-0 right-0 mt-2 py-2 rounded-2xl bg-black/95 border border-white/10 
-                                              backdrop-blur-md shadow-2xl z-50 opacity-0 invisible group-focus-within:opacity-100 
-                                              group-focus-within:visible transition-all duration-200">
-                                    <button
-                                        onClick={() => setSelectedType(null)}
-                                        className={`w-full px-6 py-3 text-left hover:bg-white/5 transition-colors ${!selectedType ? 'text-orange-500 font-bold' : 'text-white'
-                                            }`}
-                                    >
-                                        📦 Todas las Categorías
-                                    </button>
-                                    {productTypes.map((type) => (
+                                {isDropdownOpen && (
+                                    <div className="absolute top-full left-0 right-0 mt-2 py-2 rounded-2xl bg-black/95 border border-white/10 
+                                                  backdrop-blur-md shadow-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                                         <button
-                                            key={type.id}
-                                            onClick={() => setSelectedType(type.id)}
-                                            className={`w-full px-6 py-3 text-left hover:bg-white/5 transition-colors ${selectedType === type.id ? 'text-orange-500 font-bold' : 'text-white'
+                                            onClick={() => {
+                                                setSelectedType(null);
+                                                setIsDropdownOpen(false);
+                                            }}
+                                            className={`w-full px-6 py-3 text-left transition-all duration-200 ${!selectedType
+                                                ? 'text-orange-500 font-bold bg-orange-500/10'
+                                                : 'text-white hover:bg-orange-500/5 hover:text-orange-400 hover:pl-8'
                                                 }`}
                                         >
-                                            {type.name}
+                                            Todas las Categorías
                                         </button>
-                                    ))}
-                                </div>
+                                        {productTypes.map((type) => (
+                                            <button
+                                                key={type.id}
+                                                onClick={() => {
+                                                    setSelectedType(type.id);
+                                                    setIsDropdownOpen(false);
+                                                }}
+                                                className={`w-full px-6 py-3 text-left transition-all duration-200 ${selectedType === type.id
+                                                    ? 'text-orange-500 font-bold bg-orange-500/10'
+                                                    : 'text-white hover:bg-orange-500/5 hover:text-orange-400 hover:pl-8'
+                                                    }`}
+                                            >
+                                                {type.name}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
 
                             {/* Active Filter Badge */}
@@ -261,7 +285,7 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                     {/* Products Grid */}
                     <FadeContent blur={true} duration={800} delay={600} initialOpacity={0}>
                         <div className="flex items-center justify-between mb-12">
-                           
+
                             {selectedType && (
                                 <button
                                     onClick={() => setSelectedType(null)}
