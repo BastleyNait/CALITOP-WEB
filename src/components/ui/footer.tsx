@@ -177,8 +177,8 @@ export default function Footer() {
                                     className="group flex items-start gap-4 p-4 rounded-2xl glass-light hover:glass-card transition-all duration-300"
                                 >
                                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${info.isWhatsApp
-                                            ? 'bg-[#25D366]/20 text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white'
-                                            : 'bg-orange-500/10 text-orange-500 group-hover:bg-orange-500 group-hover:text-white'
+                                        ? 'bg-[#25D366]/20 text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white'
+                                        : 'bg-orange-500/10 text-orange-500 group-hover:bg-orange-500 group-hover:text-white'
                                         }`}>
                                         <info.icon className="w-5 h-5" />
                                     </div>
@@ -227,6 +227,14 @@ export default function Footer() {
                                 className="text-xs text-muted-foreground hover:text-orange-500 transition-colors"
                             >
                                 Términos y Condiciones
+                            </Link>
+                            <Link
+                                href="https://github.com/BastleyNait"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1"
+                            >
+                                Elaborado por <span className="font-bold">BastleyNait</span>
                             </Link>
                         </div>
                     </div>
