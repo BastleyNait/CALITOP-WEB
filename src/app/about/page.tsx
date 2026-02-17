@@ -29,8 +29,8 @@ const highlights = [
 ];
 
 const stats = [
-    { value: "+10", label: "Años de Experiencia" },
-    { value: "+500", label: "Equipos Calibrados" },
+    { value: "Garantizado", label: "Años de Experiencia" },
+    { value: "+100", label: "Equipos Calibrados" },
     { value: "100%", label: "Satisfacción" },
     { value: "24h", label: "Tiempo de Respuesta" },
 ];
@@ -130,8 +130,8 @@ export default function AboutPage() {
                                             <CheckCircle2 className="w-6 h-6 text-white" />
                                         </div>
                                         <div>
-                                            <h4 className="text-white font-bold">Laboratorio Certificado</h4>
-                                            <p className="text-slate-400 text-sm">Calibración con trazabilidad internacional</p>
+                                            <h4 className="text-white font-bold">Nuestro Laboratorio</h4>
+                                            <p className="text-slate-400 text-sm">Precisión que impulsa proyectos</p>
                                         </div>
                                     </div>
                                 </div>

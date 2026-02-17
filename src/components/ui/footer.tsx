@@ -83,7 +83,7 @@ export default function Footer() {
                                     />
                                 </div>
                             </Link>
-                            <div className="relative w-40 h-12">
+                            <div className="relative w-40 h-24">
                                 <Image
                                     src="/images/products/logo2.png"
                                     alt="Topservice Logo"

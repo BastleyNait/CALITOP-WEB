@@ -41,15 +41,18 @@ export async function getProducts(): Promise<ActionResult<Product[]>> {
 
         return { success: true, data: data || [] };
     } catch (error: any) {
-        console.error("Error fetching products details:", {
-            message: error.message,
-            code: error.code,
-            details: error.details,
-            hint: error.hint
+        // Enhanced error logging for better debugging
+        console.error("[ Server ] Error fetching products details:", {
+            type: error?.constructor?.name || typeof error,
+            message: error?.message || String(error),
+            code: error?.code,
+            details: error?.details,
+            hint: error?.hint,
+            fullError: error
         });
         return {
             success: false,
-            error: error.message || "Failed to fetch products",
+            error: error?.message || "Failed to fetch products. Please check your Supabase configuration.",
         };
     }
 }

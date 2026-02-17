@@ -29,7 +29,7 @@ const services = [
     {
         icon: Package,
         title: "Venta de Instrumentos",
-        description: "Distribuidores autorizados de las mejores marcas. Teodolitos, GPS diferenciales y drones para fotogrametría.",
+        description: "Distribuidores de las mejores marcas. Teodolitos, GPS diferenciales y drones para fotogrametría.",
         link: "/products",
         linkText: "Ver Catálogo",
         accent: "from-orange-600 to-orange-500",

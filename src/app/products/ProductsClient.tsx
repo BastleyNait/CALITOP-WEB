@@ -55,7 +55,7 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
             setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
         }, 6000);
         return () => clearInterval(timer);
-    }, []);
+    }, [backgroundImages.length]);
 
     return (
         <div className="min-h-screen bg-background overflow-x-hidden">
@@ -66,10 +66,10 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                     {/* Image Slideshow */}
                     <motion.div
                         key={currentImageIndex}
-                        initial={{ opacity: 0, scale: 1.1 }}
-                        animate={{ opacity: 0.25, scale: 1 }}
+                        initial={{ opacity: 0, scale: 1.4 }}
+                        animate={{ opacity: 0.7, scale: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 2, ease: "easeOut" }}
+                        transition={{ duration: 2, ease: "easeInOut" }}
                         className="absolute inset-0"
                     >
                         <Image
@@ -82,7 +82,7 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                     </motion.div>
 
                     {/* Mesh Gradient Overlay */}
-                    <div className="absolute inset-0 mesh-gradient opacity-80" />
+                    <div className="absolute inset-0 mesh-gradient opacity-60" />
 
                     {/* Radial Gradient for Depth */}
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
@@ -100,7 +100,7 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                             opacity: [0.3, 0.5, 0.3],
                         }}
                         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-orange-500/10 blur-[120px]"
+                        className="absolute top-1/3 right-1/3 w-[600px] h-[600px] rounded-full bg-orange-500/15 blur-[150px]"
                     />
                     <motion.div
                         animate={{
@@ -108,7 +108,7 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                             opacity: [0.2, 0.4, 0.2],
                         }}
                         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                        className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/8 blur-[100px]"
+                        className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/10 blur-[120px]"
                     />
                 </div>
 

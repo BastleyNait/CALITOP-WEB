@@ -130,7 +130,7 @@ export function Navbar() {
                             {/* Logo Topservice - Desktop only */}
                             <div className="hidden xl:flex items-center gap-2">
                                 <div className="w-px h-8 bg-gradient-to-b from-transparent via-orange-500/30 to-transparent" />
-                                <div className="relative w-36 h-12">
+                                <div className="relative w-36 h-16">
                                     <Image
                                         src="/images/products/logo2.png"
                                         alt="Topservice Logo"

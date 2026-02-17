@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Search, Shield, Puzzle, Wrench, CheckCircle2, Clock, Award } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const services = [
     {
@@ -37,14 +38,54 @@ const features = [
 
 export default function TechnicalServicePage() {
     const whatsappNumber = "51933588122";
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const backgroundImages = [
+        "/images/products/geo-gnss.png",
+        "/images/products/colimador.jpeg",
+        "/images/products/en-campo.png",
+        "/images/products/inspeccion-drone.png",
+    ];
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
+        }, 6000);
+        return () => clearInterval(timer);
+    }, [backgroundImages.length]);
 
     return (
         <div className="min-h-screen bg-background overflow-x-hidden">
             {/* Hero Section */}
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
                 {/* Background Effects */}
-                <div className="absolute inset-0">
+                <div className="absolute inset-0 z-0">
+                    {/* Image Slideshow */}
+                    <motion.div
+                        key={currentImageIndex}
+                        initial={{ opacity: 0, scale: 1.4 }}
+                        animate={{ opacity: 0.7, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 2, ease: "easeInOut" }}
+                        className="absolute inset-0"
+                    >
+                        <Image
+                            src={backgroundImages[currentImageIndex]}
+                            alt="Background Slideshow"
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+                    </motion.div>
+
+                    {/* Mesh Gradient Overlay */}
                     <div className="absolute inset-0 mesh-gradient opacity-60" />
+
+                    {/* Radial Gradient for Depth */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
+
+                    {/* Side Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
                     <motion.div
                         animate={{
                             y: [0, -30, 0],
@@ -169,7 +210,7 @@ export default function TechnicalServicePage() {
                             <div className="absolute -inset-4 bg-orange-500/20 rounded-3xl blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                             <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
                                 <Image
-                                    src="/images/products/colimador.jpeg"
+                                    src="/images/products/reparacion.jpg"
                                     alt="Laboratorio de Calibración"
                                     width={800}
                                     height={600}
@@ -203,7 +244,7 @@ export default function TechnicalServicePage() {
                                 </span>
                                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-foreground leading-tight mb-6">
                                     Tu precisión es nuestra{" "}
-                                    <span className="text-gradient-orange">prioridad absoluta</span>
+                                    <span className="text-gradient-orange">prioridad</span>
                                 </h2>
                                 <p className="text-muted-foreground text-lg leading-relaxed">
                                     Un milímetro de error puede costar miles de dólares en obra. Por eso,
@@ -214,7 +255,7 @@ export default function TechnicalServicePage() {
 
                             <div className="grid grid-cols-2 gap-8">
                                 <div>
-                                    <span className="block text-4xl font-black text-foreground mb-2">+10 años</span>
+                                    <span className="block text-4xl font-black text-foreground mb-2">Garantizado</span>
                                     <span className="text-slate-500 text-xs font-bold uppercase tracking-widest">Experiencia técnica</span>
                                 </div>
                                 <div>
