@@ -60,6 +60,7 @@ export function RichTextEditor({ content, onChange, placeholder = "Escribe aquí
         return null;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const ToolbarButton = ({ onClick, active, disabled, children, title }: any) => (
         <button
             type="button"

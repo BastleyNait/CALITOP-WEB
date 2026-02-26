@@ -29,7 +29,7 @@ const highlights = [
 ];
 
 const stats = [
-    { value: "Garantizado", label: "Años de Experiencia" },
+    { value: "Amplia", label: "Experiencia" },
     { value: "+100", label: "Equipos Calibrados" },
     { value: "100%", label: "Satisfacción" },
     { value: "24h", label: "Tiempo de Respuesta" },
@@ -116,7 +116,7 @@ export default function AboutPage() {
                         >
                             <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl aspect-[4/3]">
                                 <Image
-                                    src="/images/products/colimador.jpeg"
+                                    src="https://f005.backblazeb2.com/file/CALITOP/images/products/colimador.jpeg"
                                     alt="Laboratorio de Calibración CALITOP"
                                     fill
                                     className="object-cover"
@@ -238,7 +238,7 @@ export default function AboutPage() {
                             <div className="space-y-4">
                                 <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10">
                                     <Image
-                                        src="/images/products/en-campo.png"
+                                        src="https://f005.backblazeb2.com/file/CALITOP/images/products/en-campo.png"
                                         alt="Trabajo en campo"
                                         fill
                                         className="object-cover hover:scale-105 transition-transform duration-500"
@@ -246,7 +246,7 @@ export default function AboutPage() {
                                 </div>
                                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/10">
                                     <Image
-                                        src="/images/products/geo-gnss.png"
+                                        src="https://f005.backblazeb2.com/file/CALITOP/images/products/geo-gnss.png"
                                         alt="Equipos GNSS"
                                         fill
                                         className="object-cover hover:scale-105 transition-transform duration-500"
@@ -256,7 +256,7 @@ export default function AboutPage() {
                             <div className="space-y-4 pt-8">
                                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/10">
                                     <Image
-                                        src="/images/products/inspeccion-drone.png"
+                                        src="https://f005.backblazeb2.com/file/CALITOP/images/products/inspeccion-drone.png"
                                         alt="Inspección con drone"
                                         fill
                                         className="object-cover hover:scale-105 transition-transform duration-500"
@@ -264,7 +264,7 @@ export default function AboutPage() {
                                 </div>
                                 <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10">
                                     <Image
-                                        src="/images/products/colimador.jpeg"
+                                        src="https://f005.backblazeb2.com/file/CALITOP/images/products/colimador.jpeg"
                                         alt="Laboratorio"
                                         fill
                                         className="object-cover hover:scale-105 transition-transform duration-500"

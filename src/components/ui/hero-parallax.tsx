@@ -111,7 +111,7 @@ export const Header = () => {
                 <FadeContent blur={true} duration={1000} delay={200} initialOpacity={0}>
                     <div className="relative w-[320px] sm:w-[500px] md:w-[700px] h-[160px] sm:h-[250px] md:h-[300px] mb-2">
                         <Image
-                            src="/images/products/logo.png"
+                            src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo.png"
                             alt="CALITOP Logo"
                             fill
                             className="object-contain brightness-110 drop-shadow-2xl"

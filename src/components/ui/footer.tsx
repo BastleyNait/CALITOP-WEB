@@ -72,10 +72,10 @@ export default function Footer() {
                     <div className="lg:col-span-4 space-y-6">
                         {/* Logos */}
                         <div className="flex flex-col gap-4">
-                            <Link href="/" className="inline-block">
+                            <Link href="/" className="">
                                 <div className="relative w-48 h-14">
                                     <Image
-                                        src="/images/products/logo.png"
+                                        src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo.png"
                                         alt="Calitop Logo"
                                         fill
                                         className="object-contain"
@@ -83,9 +83,9 @@ export default function Footer() {
                                     />
                                 </div>
                             </Link>
-                            <div className="relative w-40 h-24">
+                            <div className="relative w-48 h-28">
                                 <Image
-                                    src="/images/products/logo2.png"
+                                    src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo3.png"
                                     alt="Topservice Logo"
                                     fill
                                     className="object-contain brightness-110"

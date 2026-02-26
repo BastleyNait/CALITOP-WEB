@@ -84,6 +84,7 @@ export async function createProductType(
             .replace(/[^a-z0-9]+/g, "-")
             .replace(/^-|-$/g, "");
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data, error } = await (supabase
             .from("product_types") as any)
             .insert({
@@ -130,6 +131,7 @@ export async function updateProductType(
         if (formData.sortOrder !== undefined) updateData.sort_order = formData.sortOrder;
         if (formData.isActive !== undefined) updateData.is_active = formData.isActive;
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data, error } = await (supabase
             .from("product_types") as any)
             .update(updateData)
@@ -160,6 +162,7 @@ export async function deleteProductType(id: string): Promise<ActionResult> {
         const supabase = createAdminClient();
 
         // Soft delete - just mark as inactive
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { error } = await (supabase
             .from("product_types") as any)
             .update({ is_active: false })

@@ -44,10 +44,10 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const backgroundImages = [
-        "/images/products/en-campo.png",
-        "/images/products/colimador.jpeg",
-        "/images/products/geo-gnss.png",
-        "/images/products/inspeccion-drone.png",
+        "https://f005.backblazeb2.com/file/CALITOP/images/products/en-campo.png",
+        "https://f005.backblazeb2.com/file/CALITOP/images/products/colimador.jpeg",
+        "https://f005.backblazeb2.com/file/CALITOP/images/products/geo-gnss.png",
+        "https://f005.backblazeb2.com/file/CALITOP/images/products/inspeccion-drone.png",
     ];
 
     useEffect(() => {
@@ -393,7 +393,7 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                                                     showTooltip={false}
                                                     displayOverlayContent={true}
                                                     overlayContent={
-                                                        <div className="w-full h-full flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
+                                                        <div className="hidden lg:flex w-full h-full flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-[2px]">
                                                             <div className="flex flex-col gap-2 w-full max-w-[140px] px-4">
                                                                 <button
                                                                     onClick={() => handleQuote(p.name)}
@@ -431,6 +431,28 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                                                     </p>
                                                 )}
                                             </Link>
+
+                                            {/* Mobile Interaction Buttons */}
+                                            <div className="flex lg:hidden flex-col gap-2 mt-4 px-2 w-full mx-auto">
+                                                <button
+                                                    onClick={() => handleQuote(p.name)}
+                                                    className="w-full px-4 py-2.5 bg-white/10 text-white font-bold rounded-xl active:bg-white/20 border border-white/20 transition-all text-xs flex justify-center items-center"
+                                                >
+                                                    Cotizar
+                                                </button>
+                                                <Link
+                                                    href={`/products/${p.id}`}
+                                                    className="w-full px-4 py-2.5 bg-[#F97316] text-white font-black rounded-xl active:bg-orange-600 transition-all text-xs shadow-lg shadow-orange-500/20 text-center flex justify-center items-center"
+                                                >
+                                                    Ver Detalles
+                                                </Link>
+                                                <Link
+                                                    href={`/checkout/${p.id}`}
+                                                    className="w-full px-4 py-2.5 bg-zinc-800 text-white font-bold rounded-xl active:bg-zinc-700 transition-all text-xs text-center border border-white/5 flex justify-center items-center"
+                                                >
+                                                    Comprar
+                                                </Link>
+                                            </div>
                                         </div>
                                     );
                                 })}

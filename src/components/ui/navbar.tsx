@@ -73,7 +73,7 @@ export function Navbar() {
                             >
                                 <div className="relative w-44 h-14 lg:w-52 lg:h-16">
                                     <Image
-                                        src="/images/products/logo.png"
+                                        src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo.png"
                                         alt="Calitop Logo"
                                         fill
                                         className="object-contain drop-shadow-lg"
@@ -129,10 +129,9 @@ export function Navbar() {
                         <div className="flex items-center gap-4 z-10">
                             {/* Logo Topservice - Desktop only */}
                             <div className="hidden xl:flex items-center gap-2">
-                                <div className="w-px h-8 bg-gradient-to-b from-transparent via-orange-500/30 to-transparent" />
-                                <div className="relative w-36 h-16">
+                                <div className="relative w-52 h-44">
                                     <Image
-                                        src="/images/products/logo2.png"
+                                        src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo3.png"
                                         alt="Topservice Logo"
                                         fill
                                         className="object-contain brightness-110"
@@ -140,23 +139,7 @@ export function Navbar() {
                                     />
                                 </div>
                             </div>{/* CTA Button */}
-                            <Link
-                                href="https://wa.me/51933588122"
-                                target="_blank"
-                                className="group relative px-6 py-3 rounded-xl overflow-hidden"
-                            >
-                                {/* Gradient Background */}
-                                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-300 group-hover:from-orange-400 group-hover:to-orange-500" />
 
-                                {/* Glow Effect */}
-                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-orange-400 to-orange-500 blur-xl" />
-
-                                {/* Content */}
-                                <span className="relative z-10 flex items-center gap-2 text-white font-bold text-sm">
-                                    Cotizar Ahora
-                                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                                </span>
-                            </Link>
                         </div>
 
                         {/* Mobile Menu Button */}
@@ -267,7 +250,7 @@ export function Navbar() {
                                     <div className="flex items-center justify-center gap-4">
                                         <div className="relative w-28 h-10">
                                             <Image
-                                                src="/images/products/logo.png"
+                                                src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo.png"
                                                 alt="Calitop Logo"
                                                 fill
                                                 className="object-contain"
@@ -276,7 +259,7 @@ export function Navbar() {
                                         <div className="w-px h-8 bg-white/20" />
                                         <div className="relative w-32 h-12">
                                             <Image
-                                                src="/images/products/logo2.png"
+                                                src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo3.png"
                                                 alt="TOPSERVICE Logo"
                                                 fill
                                                 className="object-contain"

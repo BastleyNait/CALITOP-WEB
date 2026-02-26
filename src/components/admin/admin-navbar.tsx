@@ -16,7 +16,7 @@ export function AdminNavbar() {
                     <Link href="/" className="flex items-center group transition-transform hover:scale-105">
                         <div className="relative w-40 sm:w-52 h-12 sm:h-16">
                             <Image
-                                src="/images/products/logo.png"
+                                src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo.png"
                                 alt="Calitop"
                                 fill
                                 className="object-contain"
@@ -39,7 +39,7 @@ export function AdminNavbar() {
                     <div className="h-10 w-px bg-white/5 hidden sm:block" />
                     <div className="relative w-32 sm:w-44 h-12 sm:h-20 grayscale brightness-125 opacity-90 transition-all hover:grayscale-0">
                         <Image
-                            src="/images/products/logo2.png"
+                            src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo2.png"
                             alt="Topservice"
                             fill
                             className="object-contain"

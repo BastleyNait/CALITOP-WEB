@@ -41,10 +41,10 @@ export default function TechnicalServicePage() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const backgroundImages = [
-        "/images/products/geo-gnss.png",
-        "/images/products/colimador.jpeg",
-        "/images/products/en-campo.png",
-        "/images/products/inspeccion-drone.png",
+        "https://f005.backblazeb2.com/file/CALITOP/images/products/geo-gnss.png",
+        "https://f005.backblazeb2.com/file/CALITOP/images/products/colimador.jpeg",
+        "https://f005.backblazeb2.com/file/CALITOP/images/products/en-campo.png",
+        "https://f005.backblazeb2.com/file/CALITOP/images/products/inspeccion-drone.png",
     ];
 
     useEffect(() => {
@@ -210,7 +210,7 @@ export default function TechnicalServicePage() {
                             <div className="absolute -inset-4 bg-orange-500/20 rounded-3xl blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                             <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
                                 <Image
-                                    src="/images/products/reparacion.jpg"
+                                    src="https://f005.backblazeb2.com/file/CALITOP/images/products/reparacion.jpg"
                                     alt="Laboratorio de Calibración"
                                     width={800}
                                     height={600}
@@ -340,10 +340,10 @@ export default function TechnicalServicePage() {
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {[
-                            { src: "/images/products/colimador.jpeg", alt: "Colimador de precisión" },
-                            { src: "/images/products/en-campo.png", alt: "Trabajo en campo" },
-                            { src: "/images/products/geo-gnss.png", alt: "Equipos GNSS" },
-                            { src: "/images/products/inspeccion-drone.png", alt: "Inspección con drone" },
+                            { src: "https://f005.backblazeb2.com/file/CALITOP/images/products/colimador.jpeg", alt: "Colimador de precisión" },
+                            { src: "https://f005.backblazeb2.com/file/CALITOP/images/products/en-campo.png", alt: "Trabajo en campo" },
+                            { src: "https://f005.backblazeb2.com/file/CALITOP/images/products/geo-gnss.png", alt: "Equipos GNSS" },
+                            { src: "https://f005.backblazeb2.com/file/CALITOP/images/products/inspeccion-drone.png", alt: "Inspección con drone" },
                         ].map((image, index) => (
                             <motion.div
                                 key={image.src}

@@ -6,11 +6,11 @@ import Link from "next/link";
 import { ArrowRight, Phone, CheckCircle2 } from "lucide-react";
 
 const backgroundImages = [
-    "/images/products/en-campo.png",
-    "/images/products/colimador-estacion.jpeg",
-    "/images/products/colimador.jpeg",
-    "/images/products/geo-gnss.png",
-    "/images/products/inspeccion-drone.png",
+    "https://f005.backblazeb2.com/file/CALITOP/images/products/en-campo.png",
+    "https://f005.backblazeb2.com/file/CALITOP/images/products/colimador-estacion.jpeg",
+    "https://f005.backblazeb2.com/file/CALITOP/images/products/colimador.jpeg",
+    "https://f005.backblazeb2.com/file/CALITOP/images/products/geo-gnss.png",
+    "https://f005.backblazeb2.com/file/CALITOP/images/products/inspeccion-drone.png",
 ];
 
 // Imágenes del carrusel principal (Backblaze B2)
@@ -28,7 +28,7 @@ const heroCarouselImages = [
 const features = [
     "Calibración Certificada",
     "Servicio Técnico Especializado",
-    "Equipos de Primera Línea",
+    "Venta y Alquiler de Equipos",
 ];
 
 export const HeroMaquitop = () => {
@@ -147,7 +147,7 @@ export const HeroMaquitop = () => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="space-y-8"
                     >
-                        {/* Dual Logos */}
+                        {/* Dual Logos 
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ export const HeroMaquitop = () => {
                         >
                             <div className="relative w-36 h-12 sm:w-44 sm:h-14">
                                 <Image
-                                    src="/images/products/logo.png"
+                                    src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo.png"
                                     alt="CALITOP Logo"
                                     fill
                                     className="object-contain brightness-110"
@@ -166,7 +166,7 @@ export const HeroMaquitop = () => {
                             <div className="w-px h-10 bg-gradient-to-b from-transparent via-orange-500/50 to-transparent" />
                             <div className="relative w-40 h-14 sm:w-52 sm:h-16">
                                 <Image
-                                    src="/images/products/logo2.png"
+                                    src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo2.png"
                                     alt="TOPSERVICE Logo"
                                     fill
                                     className="object-contain brightness-110"
@@ -174,7 +174,7 @@ export const HeroMaquitop = () => {
                                 />
                             </div>
                         </motion.div>
-
+                        */}       
                         {/* Main Heading */}
                         <motion.h1
                             initial={{ opacity: 0, y: 30 }}
@@ -196,8 +196,7 @@ export const HeroMaquitop = () => {
                             transition={{ delay: 0.6 }}
                             className="text-lg lg:text-xl text-slate-400 max-w-xl leading-relaxed"
                         >
-                            Líderes en topografía industrial, calibración certificada y equipamiento
-                            técnico de última generación para proyectos de alta envergadura.
+                            Experiencia y dedicación en servicios de topografía, calibración de equipos y venta de instrumental técnico garantizado.
                         </motion.p>
 
                         {/* Features List */}
@@ -272,7 +271,7 @@ export const HeroMaquitop = () => {
                             className="relative z-10"
                         >
                             <Image
-                                src="/images/products/calibracion.png"
+                                src="https://f005.backblazeb2.com/file/CALITOP/images/products/calibracion.png"
                                 alt="Equipos Topográficos"
                                 width={650}
                                 height={550}

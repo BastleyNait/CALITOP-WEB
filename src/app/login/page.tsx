@@ -62,7 +62,7 @@ export default function LoginPage() {
                         <div className="inline-flex flex-col items-center gap-4 mb-4">
                             <div className="relative w-32 h-32">
                                 <Image
-                                    src="/images/products/logo.png"
+                                    src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo.png"
                                     alt="CALITOP Logo"
                                     fill
                                     className="object-contain brightness-110"

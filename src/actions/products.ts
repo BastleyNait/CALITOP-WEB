@@ -28,6 +28,7 @@ export interface ActionResult<T = void> {
 export async function getProducts(): Promise<ActionResult<Product[]>> {
     try {
         const supabase = await createClient();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data, error } = await (supabase.from("products") as any)
             .select(`
                 *,
@@ -40,6 +41,7 @@ export async function getProducts(): Promise<ActionResult<Product[]>> {
         }
 
         return { success: true, data: data || [] };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         // Enhanced error logging for better debugging
         console.error("[ Server ] Error fetching products details:", {
@@ -103,6 +105,7 @@ export async function createProduct(
             showPrice: formData.showPrice
         });
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data, error } = await (supabase.from("products") as any)
             .insert({
                 name: formData.name,
@@ -156,6 +159,7 @@ export async function updateProduct(
         const { createAdminClient } = await import("@/lib/supabase/admin");
         const supabase = createAdminClient();
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data, error } = await (supabase.from("products") as any)
             .update({
                 name: formData.name,
@@ -205,6 +209,7 @@ export async function deleteProduct(id: string): Promise<ActionResult> {
         const supabase = createAdminClient();
 
         // First, get the product to retrieve the image key
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data: product, error: fetchError } = await (supabase.from("products") as any)
             .select("image_key")
             .eq("id", id)
@@ -215,6 +220,7 @@ export async function deleteProduct(id: string): Promise<ActionResult> {
         }
 
         // Delete the product from the database
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { error: deleteError } = await (supabase.from("products") as any)
             .delete()
             .eq("id", id);
