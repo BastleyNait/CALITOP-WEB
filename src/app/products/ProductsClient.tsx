@@ -10,6 +10,7 @@ import { Product, ProductType } from "@/types/database";
 import { MarkdownContent } from "@/components/ui/markdown-content";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { MessageCircle, ShoppingCart } from "lucide-react";
 
 interface ProductsClientProps {
     initialProducts: Product[];
@@ -173,9 +174,9 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                 <motion.div
                     animate={{ y: [0, 10, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+                    className="absolute bottom-8 left-0 right-0 z-20"
                 >
-                    <div className="flex flex-col items-center gap-2">
+                    <div className="flex flex-col items-center justify-center gap-2">
                         <span className="text-xs text-slate-500 font-bold uppercase tracking-widest">Explorar</span>
                         <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -432,25 +433,29 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                                                 )}
                                             </Link>
 
-                                            {/* Mobile Interaction Buttons */}
-                                            <div className="flex lg:hidden flex-col gap-2 mt-4 px-2 w-full mx-auto">
+                                            {/* Mobile Interaction Buttons - Elegant Bar */}
+                                            <div className="flex lg:hidden items-center justify-between gap-1.5 mt-4 w-full px-2">
                                                 <button
-                                                    onClick={() => handleQuote(p.name)}
-                                                    className="w-full px-4 py-2.5 bg-white/10 text-white font-bold rounded-xl active:bg-white/20 border border-white/20 transition-all text-xs flex justify-center items-center"
+                                                    onClick={(e) => { e.preventDefault(); handleQuote(p.name); }}
+                                                    className="w-10 h-10 flex flex-shrink-0 items-center justify-center rounded-full bg-zinc-900 border border-white/10 text-slate-400 active:bg-zinc-800 active:text-white transition-all shadow-sm"
+                                                    title="Cotizar"
+                                                    aria-label="Cotizar producto"
                                                 >
-                                                    Cotizar
+                                                    <MessageCircle className="w-[18px] h-[18px]" />
                                                 </button>
                                                 <Link
                                                     href={`/products/${p.id}`}
-                                                    className="w-full px-4 py-2.5 bg-[#F97316] text-white font-black rounded-xl active:bg-orange-600 transition-all text-xs shadow-lg shadow-orange-500/20 text-center flex justify-center items-center"
+                                                    className="flex-1 h-10 flex items-center justify-center rounded-full bg-[#F97316] text-white font-bold text-xs tracking-wide shadow-lg shadow-orange-500/20 active:bg-orange-600 transition-all"
                                                 >
-                                                    Ver Detalles
+                                                    Detalles
                                                 </Link>
                                                 <Link
                                                     href={`/checkout/${p.id}`}
-                                                    className="w-full px-4 py-2.5 bg-zinc-800 text-white font-bold rounded-xl active:bg-zinc-700 transition-all text-xs text-center border border-white/5 flex justify-center items-center"
+                                                    className="w-10 h-10 flex flex-shrink-0 items-center justify-center rounded-full bg-zinc-900 border border-white/10 text-slate-400 active:bg-zinc-800 active:text-white transition-all shadow-sm"
+                                                    title="Comprar"
+                                                    aria-label="Comprar producto"
                                                 >
-                                                    Comprar
+                                                    <ShoppingCart className="w-[18px] h-[18px]" />
                                                 </Link>
                                             </div>
                                         </div>
