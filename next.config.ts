@@ -29,6 +29,15 @@ const nextConfig: NextConfig = {
             },
         ],
     },
+    async redirects() {
+        return [
+            {
+                source: "/((?!maintenance).*)",
+                destination: "/maintenance",
+                permanent: false,
+            },
+        ];
+    },
     typescript: {
         ignoreBuildErrors: true,
     },

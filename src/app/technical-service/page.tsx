@@ -30,7 +30,7 @@ const services = [
 const brands = ["Leica", "Topcon", "Trimble", "Sokkia", "South", "Hi-Target", "Kolida", "Nikon"];
 
 const features = [
-    { icon: CheckCircle2, text: "Certificación ISO" },
+    { icon: CheckCircle2, text: "Rumbo a la Certificación ISO" },
     { icon: Clock, text: "Diagnóstico en 24h" },
     { icon: Award, text: "Garantía Oficial" },
     { icon: Wrench, text: "Repuestos Originales" },
@@ -255,7 +255,7 @@ export default function TechnicalServicePage() {
 
                             <div className="grid grid-cols-2 gap-8">
                                 <div>
-                                    <span className="block text-4xl font-black text-foreground mb-2">Garantizado</span>
+                                    <span className="block text-4xl font-black text-foreground mb-2">Amplia</span>
                                     <span className="text-slate-500 text-xs font-bold uppercase tracking-widest">Experiencia técnica</span>
                                 </div>
                                 <div>
