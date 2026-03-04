@@ -32,8 +32,8 @@ const nextConfig: NextConfig = {
     async redirects() {
         return [
             {
-                source: "/((?!maintenance).*)",
-                destination: "/maintenance",
+                source: "/((?!maintenance\\.html|_next).*)",
+                destination: "/maintenance.html",
                 permanent: false,
             },
         ];
