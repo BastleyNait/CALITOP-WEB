@@ -1,53 +1,36 @@
-# Calitop Web Application
-
-A dual-business web application for **Calitop** & **Topservice** - equipment rental and topographic services.
-
-## Tech Stack
-
-- **Framework:** Next.js 15 (App Router, TypeScript)
-- **Database & Auth:** Supabase (PostgreSQL + Auth)
-- **Object Storage:** S3 Compatible (Cloudflare R2 / Backblaze B2)
-- **Deployment:** Vercel
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-1. Install dependencies:
-```bash
-npm install
-```
+First, run the development server:
 
-2. Copy environment variables:
-```bash
-cp .env.example .env.local
-```
-
-3. Configure your `.env.local` with your credentials
-
-4. Run the development server:
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Project Structure
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── (admin)/           # Admin routes (products CRUD)
-│   └── (public)/          # Public routes
-├── components/
-│   ├── admin/             # Admin panel components
-│   └── ui/                # Shared UI components
-├── lib/                   # Utility libraries
-│   ├── supabase/          # Supabase client config
-│   └── s3-client.ts       # S3 client for R2/B2
-└── actions/               # Server Actions
-    ├── products.ts        # Product CRUD
-    └── storage.ts         # Presigned URL generation
-```
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Environment Variables
+## Learn More
 
-See `.env.example` for required environment variables.
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
