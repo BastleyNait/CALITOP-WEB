@@ -85,7 +85,7 @@ export default function Footer() {
                             </Link>
                             <div className="relative w-48 h-28">
                                 <Image
-                                    src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo3.png"
+                                    src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo_topservice.png"
                                     alt="Topservice Logo"
                                     fill
                                     className="object-contain brightness-110"

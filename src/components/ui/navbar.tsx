@@ -129,9 +129,9 @@ export function Navbar() {
                         <div className="flex items-center gap-4 z-10">
                             {/* Logo Topservice - Desktop only */}
                             <div className="hidden xl:flex items-center gap-2">
-                                <div className="relative w-52 h-44">
+                                <div className="relative w-64 h-44">
                                     <Image
-                                        src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo3.png"
+                                        src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo_topservice.png"
                                         alt="Topservice Logo"
                                         fill
                                         className="object-contain brightness-110"
@@ -259,7 +259,7 @@ export function Navbar() {
                                         <div className="w-px h-8 bg-white/20" />
                                         <div className="relative w-32 h-12">
                                             <Image
-                                                src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo3.png"
+                                                src="https://f005.backblazeb2.com/file/CALITOP/images/products/logo_topservice.png"
                                                 alt="TOPSERVICE Logo"
                                                 fill
                                                 className="object-contain"
