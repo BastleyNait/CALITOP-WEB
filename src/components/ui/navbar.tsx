@@ -269,7 +269,7 @@ export function Navbar() {
 
                                     {/* CTA */}
                                     <Link
-                                        href="https://wa.me/51933588122"
+                                        href="https://wa.me/51919615654"
                                         target="_blank"
                                         onClick={() => setMobileMenuOpen(false)}
                                         className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold shadow-lg shadow-orange-500/30"

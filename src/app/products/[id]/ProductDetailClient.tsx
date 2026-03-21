@@ -13,7 +13,7 @@ interface ProductDetailClientProps {
 }
 
 export default function ProductDetailClient({ product, imageUrl }: ProductDetailClientProps) {
-    const whatsappNumber = "51933588122";
+    const whatsappNumber = "51919615654";
 
     const handleQuote = () => {
         const message = encodeURIComponent(`Hola, deseo información sobre: ${product.name}`);

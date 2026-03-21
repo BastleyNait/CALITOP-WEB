@@ -35,7 +35,23 @@ export function AdminNavbar() {
                     </div>
                 </div>
 
-                <div className="flex items-center gap-8">
+                <div className="flex items-center gap-6">
+                    {/* Navigation Links */}
+                    <nav className="hidden md:flex items-center gap-1">
+                        <Link
+                            href="/admin/products"
+                            className="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-slate-400 hover:text-white hover:bg-white/8 transition-all border border-transparent hover:border-white/10"
+                        >
+                            Productos
+                        </Link>
+                        <Link
+                            href="/admin/categories"
+                            className="px-4 py-2 rounded-xl text-[11px] font-black uppercase tracking-widest text-slate-400 hover:text-white hover:bg-white/8 transition-all border border-transparent hover:border-white/10"
+                        >
+                            Categorías
+                        </Link>
+                    </nav>
+
                     <div className="h-10 w-px bg-white/5 hidden sm:block" />
                     <div className="relative w-32 sm:w-44 h-12 sm:h-20 grayscale brightness-125 opacity-90 transition-all hover:grayscale-0">
                         <Image

@@ -7,20 +7,10 @@ import FadeContent from "@/components/FadeContent";
 import ShinyText from "@/components/ShinyText";
 
 const contactInfo = [
-    {
-        title: "Central Telefónica",
-        value: "+51 933 588 122",
-        subtitle: "Lunes a Viernes: 8:00 AM - 6:00 PM",
-        color: "orange",
-        icon: (
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-        )
-    },
+    
     {
         title: "Correo Electrónico",
-        value: "ventas@calitop-services.com",
+        value: "serviciotecnico@calitop-services.com\nventas@calitop-services.com",
         subtitle: "Soporte técnico y ventas",
         color: "purple",
         icon: (
@@ -31,7 +21,7 @@ const contactInfo = [
     },
     {
         title: "WhatsApp",
-        value: "+51 933 588 122",
+        value: "+51 919 615 654",
         subtitle: "Respuesta inmediata",
         color: "green",
         icon: (
@@ -168,7 +158,7 @@ export default function ContactPage() {
                                                     type="tel"
                                                     id="phone"
                                                     className="w-full px-5 py-4 rounded-2xl bg-muted border border-border text-foreground placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#F97316]/20 focus:border-[#F97316] transition-all"
-                                                    placeholder="+51 933 588 122"
+                                                    placeholder="+51 919 615 654"
                                                 />
                                             </div>
                                         </div>

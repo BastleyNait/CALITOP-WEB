@@ -16,8 +16,12 @@ const backgroundImages = [
 // Imágenes del carrusel principal (Backblaze B2)
 const heroCarouselImages = [
     {
-        src: "https://f005.backblazeb2.com/file/CALITOP/img/estaciones-hero.webp",
-        alt: "Estaciones totales de alta precisión - CALITOP"
+        src: "https://f005.backblazeb2.com/file/CALITOP/img/hero_leica.png",
+        alt: "Estaciones totales de alta precisión leica - CALITOP"
+    },
+    {
+        src: "https://f005.backblazeb2.com/file/CALITOP/img/hero_topcon.png",
+        alt: "Estaciones totales de alta precisión topcon - CALITOP"
     },
     {
         src: "https://f005.backblazeb2.com/file/CALITOP/img/niveles-hero.webp",
@@ -174,7 +178,7 @@ export const HeroMaquitop = () => {
                                 />
                             </div>
                         </motion.div>
-                        */}       
+                        */}
                         {/* Main Heading */}
                         <motion.h1
                             initial={{ opacity: 0, y: 30 }}

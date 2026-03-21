@@ -70,7 +70,7 @@ export default function CheckoutPage() {
                 `Referencia: ${formData.reference}\n\n` +
                 `${formData.notes ? `💬 *Notas:* ${formData.notes}` : ''}`
             );
-            window.open(`https://wa.me/51933588122?text=${message}`, '_blank');
+            window.open(`https://wa.me/51919615654?text=${message}`, '_blank');
         }, 1500);
     };
 

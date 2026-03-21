@@ -28,7 +28,7 @@ const WhatsAppButton = () => {
             </AnimatePresence>
 
             <Link
-                href="https://wa.me/51933588122"
+                href="https://wa.me/51919615654"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group"

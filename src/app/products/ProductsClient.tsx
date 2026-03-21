@@ -21,7 +21,7 @@ interface ProductsClientProps {
 
 
 export default function ProductsClient({ initialProducts, publicUrls, productTypes }: ProductsClientProps) {
-    const whatsappNumber = "51933588122";
+    const whatsappNumber = "51919615654";
     const [selectedType, setSelectedType] = useState<string | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
