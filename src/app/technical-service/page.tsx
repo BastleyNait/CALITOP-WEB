@@ -255,7 +255,7 @@ export default function TechnicalServicePage() {
 
                             <div className="grid grid-cols-2 gap-8">
                                 <div>
-                                    <span className="block text-4xl font-black text-foreground mb-2">Garantizado</span>
+                                    <span className="block text-4xl font-black text-foreground mb-2">Alta</span>
                                     <span className="text-slate-500 text-xs font-bold uppercase tracking-widest">Experiencia técnica</span>
                                 </div>
                                 <div>

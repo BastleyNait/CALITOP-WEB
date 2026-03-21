@@ -447,7 +447,7 @@ export default function ProductsClient({ initialProducts, publicUrls, productTyp
                                                     href={`/products/${p.id}`}
                                                     className="flex-1 h-10 flex items-center justify-center rounded-full bg-[#F97316] text-white font-bold text-xs tracking-wide shadow-lg shadow-orange-500/20 active:bg-orange-600 transition-all"
                                                 >
-                                                    Detalles
+                                                    Ver
                                                 </Link>
                                                 <Link
                                                     href={`/checkout/${p.id}`}
