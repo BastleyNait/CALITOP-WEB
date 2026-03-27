@@ -28,7 +28,7 @@ const socialLinks = [
 
 export default function Footer() {
     return (
-        <footer className="relative w-full glass-footer mt-20">
+        <footer className="relative w-full glass-footer">
             {/* Gradient accent line */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange-500/50 to-transparent" />
 
@@ -66,6 +66,7 @@ export default function Footer() {
                                 >
                                     <Mail className="w-4 h-4 mt-0.5 text-orange-500 flex-shrink-0" />
                                     <span className="text-sm break-all">serviciotecnico@calitop-services.com</span>
+                                    <span className="text-sm break-all">ventas@calitop-services.com</span>
                                 </motion.a>
                             </div>
 
@@ -169,7 +170,7 @@ export default function Footer() {
 
             {/* Bottom Bar */}
             <div className="border-t border-white/5">
-                <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 py-6">
+                <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 pt-6 pb-28 md:pb-6">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                         {/* Copyright */}
                         <p className="text-muted-foreground text-sm text-center md:text-left">

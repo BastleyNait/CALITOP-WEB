@@ -94,17 +94,13 @@ export default function AboutPage() {
                             transition={{ duration: 0.6 }}
                             className="space-y-8"
                         >
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card">
-                                <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
-                                <span className="text-orange-500 font-black uppercase tracking-widest text-xs">Nosotros</span>
-                            </div>
-
+                       
                             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-foreground leading-tight">
                                 Precisión que{" "}
                                 <span className="text-gradient-orange">Impulsa Proyectos</span>
                             </h1>
 
-                            <p className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-xl">
+                            <p className="text-muted-foreground text-m md:text-xl leading-relaxed max-w-xl">
                                 CALITOP es referente en <span className="text-orange-400 font-bold">equipos topográficos y servicio técnico especializado</span>.
                                 Ofrecemos calibración certificada, venta de instrumentos de precisión y soporte continuo
                                 para la industria de la construcción, minería e ingeniería.
@@ -163,8 +159,7 @@ export default function AboutPage() {
                                             <CheckCircle2 className="w-6 h-6 text-white" />
                                         </div>
                                         <div>
-                                            <h4 className="text-white font-bold">Nuestro Laboratorio</h4>
-                                            <p className="text-slate-400 text-sm">Precisión que impulsa proyectos</p>
+                                            <h4 className="text-white font-bold">Nuestro Laboratorio e importaciones</h4>
                                         </div>
                                     </div>
                                 </div>

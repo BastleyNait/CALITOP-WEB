@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/ui/navbar";
+import { MobileBottomNav } from "@/components/revolt/mobile-bottom-nav";
 
 export const metadata: Metadata = {
     title: {
@@ -44,8 +45,9 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <Navbar />
-                    <main>{children}</main>
+                    <main className="pb-20 md:pb-0">{children}</main>
                     <Footer />
+                    <MobileBottomNav />
                     <WhatsAppButton />
                 </ThemeProvider>
             </body>

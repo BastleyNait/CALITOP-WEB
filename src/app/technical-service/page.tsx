@@ -106,16 +106,7 @@ export default function TechnicalServicePage() {
 
                 <div className="relative z-10 w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 py-32">
                     <div className="text-center max-w-5xl mx-auto">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                        >
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8">
-                                <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
-                                <span className="text-orange-500 font-black uppercase tracking-widest text-xs">Laboratorio de Precisión</span>
-                            </div>
-                        </motion.div>
+                       
 
                         <motion.h1
                             initial={{ opacity: 0, y: 30 }}

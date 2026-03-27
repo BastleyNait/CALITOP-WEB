@@ -9,7 +9,7 @@ const WhatsAppButton = () => {
 
     return (
         <div
-            className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end gap-3"
+            className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-[9999] flex flex-col items-end gap-3"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -36,7 +36,7 @@ const WhatsAppButton = () => {
                 <motion.div
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg shadow-green-500/40 cursor-pointer relative overflow-hidden"
+                    className="w-12 h-12 lg:w-16 lg:h-16 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg shadow-green-500/40 cursor-pointer relative overflow-hidden"
                 >
                     {/* Pulsing effect */}
                     <motion.div
@@ -46,7 +46,7 @@ const WhatsAppButton = () => {
                     />
 
                     <svg
-                        className="w-8 h-8 text-white relative z-10"
+                        className="w-6 h-6 lg:w-8 lg:h-8 text-white relative z-10"
                         fill="currentColor"
                         viewBox="0 0 24 24"
                     >
